@@ -89,4 +89,9 @@ TEST( UserList, FillContainer ) {
     }
 
     EXPECT_EQ( 0, userList.size() );
+
+    for ( size_t loop = 0; loop < NGEN_USER_LIST_MAXIMUM_USERS; ++loop )
+    {
+        EXPECT_FALSE( userList.userExists( kTestPublicKey + loop ) );
+    }
 }

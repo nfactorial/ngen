@@ -27,6 +27,9 @@
 ////////////////////////////////////////////////////////////////////////////
 
 //! \brief Temporary structure to represent an IP address. Will be re-worked in the future
+//!
+//! TODO: This will be moved into the platform library
+//! TODO: Add static members for InvalidIp, LocalHost and Broadcast
 struct tempIp {
     char a, b, c, d;
 
