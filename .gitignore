@@ -1,0 +1,5 @@
+# No need to store IDE settings
+.idea
+
+# Build directory is not under version control
+build

@@ -1,0 +1,11 @@
+#
+.idea
+
+# Logging
+*.log
+
+# Build folder
+build
+
+# Dependency folder
+dependencies

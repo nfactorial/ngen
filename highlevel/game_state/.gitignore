@@ -1,0 +1,5 @@
+# No need for IDE settings to be uploaded
+.idea
+
+# Exclude build directory
+build
