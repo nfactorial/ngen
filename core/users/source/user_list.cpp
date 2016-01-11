@@ -36,10 +36,8 @@ bool UserList::userExists( uint64_t publicKey )
 {
     // TODO: Lock local data for threading security
 
-    for ( size_t loop = 0; loop < m_count; ++loop )
-    {
-        if ( m_users[ loop ].publicKey == publicKey )
-        {
+    for ( size_t loop = 0; loop < m_count; ++loop ) {
+        if ( m_users[ loop ].publicKey == publicKey ) {
             return true;
         }
     }
@@ -60,21 +58,18 @@ bool UserList::addUser( uint64_t privateKey, uint64_t publicKey, const tempIp &i
 {
     // TODO: Lock local data for threading security
 
-    if ( NGEN_USER_LIST_MAXIMUM_USERS == m_count )
-    {
+    if ( NGEN_USER_LIST_MAXIMUM_USERS == m_count ) {
         // log( "UserList::addUser - Unable to add new user, session capacity is full." );
         return false;
     }
 
-    if ( userExists( publicKey ) )
-    {
+    if ( userExists( publicKey ) ) {
         // log( "UserList::addUser - Unable to add new user, public key alerady in use." );
         return false;
     }
 
     const UserInfo user = UserInfo::createUser( privateKey, publicKey, ipAddress );
-    if ( UserInfo::kInvalidUser == user )
-    {
+    if ( UserInfo::kInvalidUser == user ) {
         // Log( "UserList::addUser - Cannot add invalid user." );
         return false;
     }
@@ -89,14 +84,12 @@ bool UserList::addUser( uint64_t privateKey, uint64_t publicKey, const tempIp &i
 //! \param  privateKey [in] -
 //!         The private key of the user to be removed.
 //! \return <em>True</em> if the user was successfully removed otherwise <em>false</em>.
-bool UserList::removeUser( uint64_t privateKey )
+bool UserList::removeUser( uint64_t publicKey )
 {
     // TODO: Lock local data for threading security
 
-    for ( size_t loop = 0; loop < m_count; ++loop )
-    {
-        if ( m_users[ loop ].privateKey == privateKey )
-        {
+    for ( size_t loop = 0; loop < m_count; ++loop ) {
+        if ( m_users[ loop ].publicKey == publicKey ) {
             m_users[ loop ] = m_users[ --m_count ];
             m_users[ m_count ] = UserInfo::kInvalidUser;
 

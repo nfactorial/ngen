@@ -17,14 +17,12 @@
 #include "json_writer.h"
 #include "gtest/gtest.h"
 
-#define GTEST_ENABLE_CATCH_EXCEPTIONS_     1 // TODO: Should be in build script
-
 
 //////////////////////////////////////////////////////////////////////
 // Tests for HeapAllocator class.
 
 // \brief   Ensures we can successully create and destroy a writer without assigning it a buffer.
-TEST( JsonWriterCtorTest, Uninitialized ) {
+TEST( JsonWriter, Uninitialized ) {
     JsonWriter writer;
     
     EXPECT_EQ( 0, writer.getLength() );
@@ -41,7 +39,7 @@ TEST( JsonWriterCtorTest, Uninitialized ) {
 }
 
 //! \brief  Eensures the writer behaves correctly when it is initialized but no data is written
-TEST( JsonWriter_Initialize, Initialize ) {
+TEST( JsonWriter, Initialize ) {
     constexpr size_t kCapacity = 1024 * 32;
     
     char *buffer = new char[ kCapacity ];
@@ -60,7 +58,7 @@ TEST( JsonWriter_Initialize, Initialize ) {
 }
 
 //! \brief  Ensures the writer behaves correctly when writing an empty object.
-TEST( JsonWriter_BeginObject, EmptyObject ) {
+TEST( JsonWriter, EmptyObject ) {
     constexpr size_t kCapacity = 1024 * 32;
     
     char *buffer = new char[ kCapacity ];
@@ -83,7 +81,7 @@ TEST( JsonWriter_BeginObject, EmptyObject ) {
 }
 
 //! \brief  Ensures the writer behaves correctly when writing an empty array.
-TEST( JsonWriter_BeginArray, EmptyArray ) {
+TEST( JsonWriter, EmptyArray ) {
     constexpr size_t kCapacity = 1024 * 32;
     
     char *buffer = new char[ kCapacity ];
@@ -106,7 +104,7 @@ TEST( JsonWriter_BeginArray, EmptyArray ) {
 }
 
 //! \brief  Write a JSON array object and verify it generated the expected output
-TEST( JsonWriter_TestIntArray, TestIntArray ) {
+TEST( JsonWriter, TestIntArray ) {
     constexpr size_t kCapacity = 1024 * 32;
     
     char *buffer = new char[ kCapacity ];
@@ -128,10 +126,4 @@ TEST( JsonWriter_TestIntArray, TestIntArray ) {
     
     EXPECT_EQ( kExpectedLength, writer.getDataLength() );
     EXPECT_EQ( 0, strcmp( kExpectedContent, writer.getBuffer(), kExpectedLength ) );
-}
-
-int main(int argc, char** argv ) {
-    testing::InitGoogleTest(&argc, argv);
-    testing::GTEST_FLAG(catch_exceptions) = GTEST_ENABLE_CATCH_EXCEPTIONS_ != 0;
-    return RUN_ALL_TESTS();
 }

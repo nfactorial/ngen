@@ -20,7 +20,24 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-struct tempIp { char a, b, c, d };
+#include <cstdint>
+#include <cstddef>
+
+
+////////////////////////////////////////////////////////////////////////////
+
+//! \brief Temporary structure to represent an IP address. Will be re-worked in the future
+struct tempIp {
+    char a, b, c, d;
+
+    bool operator==(const tempIp &other) const {
+        return ( a == other.a && b == other.b && c == other.c && d == other.d );
+    }
+
+    bool operator!=( const tempIp &other ) const {
+        return ( a != other.a || b != other.b || c != other.c || d != other.d );
+    }
+};
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -43,15 +60,17 @@ struct tempIp { char a, b, c, d };
 //!
 struct UserInfo
 {
-        uint64_t    privateKey;     // Private key within our network
-        uint64_t    publicKey;      // Key user must supply for this session
-        uint64_t    lastSeen;       // Time stamp when we last heard from this user
-        tempIp      ipAddress;      // IP address the user will communicate from
-        uint32_t    latency;        // Last latency calculation for this user
+    uint64_t    privateKey;     // Private key within our network
+    uint64_t    publicKey;      // Key user must supply for this session
+    uint64_t    lastSeen;       // Time stamp when we last heard from this user
+    tempIp      ipAddress;      // IP address the user will communicate from
+    uint32_t    latency;        // Last latency calculation for this user
 
-        static const UserInfo createUser( uint64_t privateKey, uint64_t publicKey, const tempIp &ipAddress );
+    bool operator==(const UserInfo &other) const;
+    bool operator!=(const UserInfo &other) const;
 
-        static const UserInfo kInvalidUser;
+    static const UserInfo createUser( uint64_t privateKey, uint64_t publicKey, const tempIp &ipAddress );
+    static const UserInfo kInvalidUser;
 };
 
 

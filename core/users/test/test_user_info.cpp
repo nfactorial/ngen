@@ -15,11 +15,11 @@
 //
 
 #include "user_info.h"
+#include "gtest/gtest.h"
 
 
 //! \brief  Verifies the UserInfo structure behaves as expected.
-int main()
-{
+TEST( UserInfo, Construction ) {
     const uint64_t kTestPrivateKey = 1234567;
     const uint64_t kTestPublicKey = 7654321;
     const tempIp kTestIpAddress = { 1, 2, 3, 4 };
@@ -27,12 +27,12 @@ int main()
     // Check a created user contains the correct values
     const UserInfo testUser = UserInfo::createUser( kTestPrivateKey, kTestPublicKey, kTestIpAddress );
 
-    assert( UserInfo::kInvalidUser != testUser );
-    assert( kTestPrivateKey == testUser.privateKey );
-    assert( kTestPublicKey == testUser.publicKey );
-    assert( kTestIpAddress == testUser.ipAddress );
-    assert( 0 == testUser.lastSeen );
-    assert( 0 == testUser.latency );
-
-    return 0;
+    EXPECT_TRUE( testUser == testUser );
+    EXPECT_FALSE( testUser != testUser );
+    EXPECT_NE( UserInfo::kInvalidUser, testUser);
+    EXPECT_EQ( kTestPrivateKey, testUser.privateKey);
+    EXPECT_EQ( kTestPublicKey, testUser.publicKey);
+    EXPECT_EQ( kTestIpAddress, testUser.ipAddress);
+    EXPECT_EQ( 0, testUser.lastSeen);
+    EXPECT_EQ( 0, testUser.latency);
 }

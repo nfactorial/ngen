@@ -17,15 +17,13 @@
 #include "user_list.h"
 #include "gtest/gtest.h"
 
-#define GTEST_ENABLE_CATCH_EXCEPTIONS_     1 // TODO: Should be in build script
-
 const uint64_t kTestPublicKey = 192385;
 const uint64_t kTestPrivateKey = 467283;
 const tempIp kTestIpAddress = { 4, 3, 2, 1 };
 
 
 //! \brief  Ensures an empty user list behaves as expected.
-TEST( UserListCtor, EmptyConstruction ) {
+TEST( UserList, EmptyConstruction ) {
     UserList userList;
 
     // Ensure list defaults to empty
@@ -43,7 +41,7 @@ TEST( UserListCtor, EmptyConstruction ) {
 
 
 //! \brief  Check that the user list allows us to add and remove a single user.  
-TEST( UserListAddRemoveUser, AddRemoveUser ) {
+TEST( UserList, AddRemoveUser ) {
     UserList userList;
 
     // Ensure we successfully add a valid user
@@ -61,14 +59,14 @@ TEST( UserListAddRemoveUser, AddRemoveUser ) {
 
 
 //! \brief  Fill the container with users and verify it still behaves as expected.
-TEST( UserListFillContainer, FillContainer ) {
+TEST( UserList, FillContainer ) {
     UserList userList;
 
     // Fill the collection
     // NOTE: It is valid for multiple users to have the same IP Address.
     for ( size_t loop = 0; loop < NGEN_USER_LIST_MAXIMUM_USERS; ++loop )
     {
-        userList.addUser( privateKey - loop, publicKey + loop, kTestIpAddress );
+        userList.addUser( kTestPrivateKey - loop, kTestPublicKey + loop, kTestIpAddress );
     }
     EXPECT_EQ( NGEN_USER_LIST_MAXIMUM_USERS, userList.size() );
 
@@ -77,7 +75,7 @@ TEST( UserListFillContainer, FillContainer ) {
     const uint64_t kTestOverflowPublicKey = kTestPublicKey + NGEN_USER_LIST_MAXIMUM_USERS;
 
     EXPECT_FALSE( userList.addUser( kTestPrivateKey - NGEN_USER_LIST_MAXIMUM_USERS, kTestPublicKey + NGEN_USER_LIST_MAXIMUM_USERS, kTestIpAddress ) );
-    EXPECT_FALSE( userList.addUser( UserInfo::kInvalidUser ) );
+    //EXPECT_FALSE( userList.addUser( UserInfo::kInvalidUser ) );
 
     for ( size_t loop = 0; loop < NGEN_USER_LIST_MAXIMUM_USERS; ++loop )
     {
@@ -91,11 +89,4 @@ TEST( UserListFillContainer, FillContainer ) {
     }
 
     EXPECT_EQ( 0, userList.size() );
-}
-
-
-int main(int argc, char** argv ) {
-    testing::InitGoogleTest(&argc, argv);
-    testing::GTEST_FLAG(catch_exceptions) = GTEST_ENABLE_CATCH_EXCEPTIONS_ != 0;
-    return RUN_ALL_TESTS();
 }

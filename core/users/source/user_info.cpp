@@ -32,3 +32,24 @@ const UserInfo UserInfo::createUser( uint64_t privateKey, uint64_t publicKey, co
     UserInfo newUser = { privateKey, publicKey, 0, ipAddress, 0 };
     return newUser;
 }
+
+
+//! \brief  Simple equality operator implementation.
+bool UserInfo::operator==(const UserInfo &other) const
+{
+    return (    privateKey == other.privateKey
+             && publicKey == other.publicKey
+             && lastSeen == other.lastSeen
+             && ipAddress == other.ipAddress
+             && latency == other.latency );
+}
+
+//! \brief  Simple inequality operator implementation.
+bool UserInfo::operator!=(const UserInfo &other) const
+{
+    return ( privateKey != other.privateKey
+             || publicKey != other.publicKey
+             || lastSeen != other.lastSeen
+             || ipAddress != other.ipAddress
+             || latency != other.latency );
+}
