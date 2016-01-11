@@ -15,7 +15,12 @@
 //
 
 #if !defined( JSON_WRITER_HEADER_INCLUDED_DECEMBER_2015_NFACTORIAL )
-#defined JSON_WRITER_HEADER_INCLUDED_DECEMBER_2015_NFACTORIAL
+#define JSON_WRITER_HEADER_INCLUDED_DECEMBER_2015_NFACTORIAL
+
+
+////////////////////////////////////////////////////////////////////////////
+
+#include <cstddef>
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -42,7 +47,9 @@ class JsonWriter
 public:
     JsonWriter();
     ~JsonWriter();
-    
+
+    bool initialize( void *buffer, size_t capacity );
+
     void reset();
     void dispose();
     

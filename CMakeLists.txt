@@ -12,5 +12,5 @@ include_directories(SYSTEM include)
 
 project(ngen)
 
-add_subdirectory(highlevel)
 add_subdirectory(core)
+add_subdirectory(highlevel)

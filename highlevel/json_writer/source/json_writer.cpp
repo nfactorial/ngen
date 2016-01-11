@@ -32,6 +32,14 @@ JsonWriter::~JsonWriter()
 {
 }
 
+bool JsonWriter::initialize( void *buffer, size_t capacity )
+{
+    m_rawBuffer = static_cast< unsigned char* >( buffer );
+    m_capacity = capacity;
+
+    return true;
+}
+
 
 //! \brief  Discards all references to any external memory.
 void JsonWriter::dispose()
