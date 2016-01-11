@@ -8,6 +8,7 @@ add_subdirectory(external)
 # If you install boost to an alternative path, update this to the correct location.
 # I may use a system environment variable in the future. But happy with this for now.
 include_directories(SYSTEM external/boost_1_60_0)
+include_directories(SYSTEM include)
 
 project(ngen)
 
