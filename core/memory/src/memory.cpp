@@ -14,9 +14,10 @@
 // limitations under the License.
 //
 
-#include "memory.h"
-
+#include <ngen/ngen_assert.h>
 #include <cassert>
+
+#include "memory.h"
 
 
 //! \brief	Debug allocation method that logs the filename and line number where the allocation was made.
@@ -27,7 +28,7 @@
 //! \return	Pointer to the allocated memory block, if the allocation could not be made this method returns a null pointer.
 void* operator new( std::size_t length, IMemoryPool *memoryPool )
 {
-	//NGEN_ASSERT( nullptr != memoryPool, "ngen - operator new called without a valid memory pool." );
+	NGEN_ASSERT( nullptr != memoryPool, "ngen - operator new called without a valid memory pool." );
 	return memoryPool->allocate( length );
 }
 
@@ -44,6 +45,6 @@ void* operator new( std::size_t length, IMemoryPool *memoryPool )
 //! \return	Pointer to the allocated memory block, if the allocation could not be made this method returns a null pointer.
 void* operator new( std::size_t length, IMemoryPool *memoryPool, const char *fileName, std::size_t line )
 {
-	//NGEN_ASSERT( nullptr != memoryPool, "ngen - operator new called without a valid memory pool." );
+	NGEN_ASSERT( nullptr != memoryPool, "ngen - operator new called without a valid memory pool." );
 	return memoryPool->allocate( length, fileName, line );
 }
