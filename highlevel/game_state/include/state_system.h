@@ -29,6 +29,7 @@ class GameSystem;
 class GameSystemFactory;
 
 struct UpdateArgs;
+struct GameSystemRef;
 struct StateDescription;
 
 
@@ -59,7 +60,7 @@ private:
     StateDescription    *m_stateList;           // List of all states within the system
 
     size_t              m_systemCount;
-    GameSystem          **m_systemList;
+    GameSystemRef       *m_systemList;          // List of system object instances
     GameSystem          **m_updateTable;        // Multiple lists of systems, one per state that includes poitners to all systems to be updated for that state
 
     uint32_t            *m_childTable;          // Array of indices that note the children of each node.
@@ -70,6 +71,8 @@ private:
     int                 m_pendingState;         // State to be switched to at the end of the update phase
 };
 
+
+////////////////////////////////////////////////////////////////////////////
 
 //! \brief  Returns the number of states held within the object.
 //! \return The number of states within the state system object.
