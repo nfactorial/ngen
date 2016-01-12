@@ -32,3 +32,9 @@ RenderLayer::~RenderLayer() {
 void RenderLayer::flush() {
     //
 }
+
+
+//! \brief  Performs all rendering currently queued within the layer.
+void RenderLayer::execute() {
+    //
+}

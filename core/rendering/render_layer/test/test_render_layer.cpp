@@ -17,4 +17,8 @@
 #include "render_layer.h"
 #include "gtest/gtest.h"
 
+TEST( RenderLayer, Construction ) {
+    RenderLayer layer;
 
+    EXPECT_EQ( 0, layer.getId() );
+}

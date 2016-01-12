@@ -33,6 +33,8 @@ public:
 
     void flush();
 
+    void execute();
+
     size_t getId() const;
 
 private:
