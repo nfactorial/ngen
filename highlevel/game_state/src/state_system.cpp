@@ -18,6 +18,7 @@
 #include "game_system.h"
 #include "init_args.h"
 #include "state_description.h"
+#include "game_system_ref.h"
 
 const int kInvalidStateId       = -1;
 
@@ -49,7 +50,7 @@ bool StateSystem::initialize( GameSystemFactory &factory )
 
     for ( size_t loop = 0; loop < m_systemCount; ++loop )
     {
-        m_systemList[ loop ]->onInitialize( initArgs );
+        m_systemList[ loop ].instance->onInitialize( initArgs );
     }
 
     return false;
