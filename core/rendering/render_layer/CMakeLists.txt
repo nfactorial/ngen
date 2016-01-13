@@ -10,7 +10,8 @@ set(SOURCE_FILES
         src/render_layer.cpp)
 
 set(INCLUDE_FILES
-        include/render_layer.h)
+        include/render_layer.h
+        include/material_request.h)
 
 add_library(ngen_renderlayer ${SOURCE_FILES} ${INCLUDE_FILES})
 

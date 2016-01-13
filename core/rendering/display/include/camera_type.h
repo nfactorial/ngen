@@ -14,36 +14,22 @@
 // limitations under the License.
 //
 
-#include "render_layer.h"
+#ifndef NGEN_CAMER_TYPE_H
+#define NGEN_CAMER_TYPE_H
 
 
-RenderLayer::RenderLayer()
-: m_id( 0 )
-, m_requestCount( 0 )
-{
-    //
-}
+////////////////////////////////////////////////////////////////////////////
 
-RenderLayer::~RenderLayer() {
-    //
-}
-
-
-//! \brief  Removes all draw requests from the render layers pipeline.
-void RenderLayer::flush() {
-    m_requestCount = 0;
+namespace ngen {
+    //! \brief  Defines the types of camera supported by the rendering engine.
+    enum kCamera_Type {
+        kCamera_Invalid,
+        kCamera_Orthographic,
+        kCamera_Perspective,
+    };
 }
 
 
-//! \brief  Adds a new draw request to the render layer
-void RenderLayer::addRequest() {
-    //
-}
+////////////////////////////////////////////////////////////////////////////
 
-
-//! \brief  Performs all rendering currently queued within the layer.
-void RenderLayer::execute() {
-    for (int loop = 0; loop < m_requestCount; ++loop) {
-        //m_requests[ loop ]->execute();
-    }
-}
+#endif //NGEN_CAMER_TYPE_H

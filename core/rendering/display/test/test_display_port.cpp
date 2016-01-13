@@ -14,36 +14,11 @@
 // limitations under the License.
 //
 
-#include "render_layer.h"
+#include "display_port.h"
+#include "gtest/gtest.h"
 
+TEST( DisplayPort, Construction ) {
+    DisplayPort displayPort;
 
-RenderLayer::RenderLayer()
-: m_id( 0 )
-, m_requestCount( 0 )
-{
-    //
-}
-
-RenderLayer::~RenderLayer() {
-    //
-}
-
-
-//! \brief  Removes all draw requests from the render layers pipeline.
-void RenderLayer::flush() {
-    m_requestCount = 0;
-}
-
-
-//! \brief  Adds a new draw request to the render layer
-void RenderLayer::addRequest() {
-    //
-}
-
-
-//! \brief  Performs all rendering currently queued within the layer.
-void RenderLayer::execute() {
-    for (int loop = 0; loop < m_requestCount; ++loop) {
-        //m_requests[ loop ]->execute();
-    }
+    EXPECT_EQ( 0, layer.getId() );
 }

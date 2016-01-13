@@ -14,36 +14,16 @@
 // limitations under the License.
 //
 
-#include "render_layer.h"
+#ifndef NGEN_MATERIAL_REQUEST_H
+#define NGEN_MATERIAL_REQUEST_H
+
+class Material;
 
 
-RenderLayer::RenderLayer()
-: m_id( 0 )
-, m_requestCount( 0 )
+struct MaterialRequest
 {
-    //
-}
-
-RenderLayer::~RenderLayer() {
-    //
-}
+    Material    *material;
+};
 
 
-//! \brief  Removes all draw requests from the render layers pipeline.
-void RenderLayer::flush() {
-    m_requestCount = 0;
-}
-
-
-//! \brief  Adds a new draw request to the render layer
-void RenderLayer::addRequest() {
-    //
-}
-
-
-//! \brief  Performs all rendering currently queued within the layer.
-void RenderLayer::execute() {
-    for (int loop = 0; loop < m_requestCount; ++loop) {
-        //m_requests[ loop ]->execute();
-    }
-}
+#endif //NGEN_MATERIAL_REQUEST_H

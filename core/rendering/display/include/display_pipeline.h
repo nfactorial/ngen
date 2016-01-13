@@ -14,8 +14,8 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_RENDER_LAYER_H
-#define NGEN_RENDER_LAYER_H
+#ifndef NGEN_DISPLAY_PIPELINE_H
+#define NGEN_DISPLAY_PIPELINE_H
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -25,43 +25,25 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-class Material;
-
-
-#define NGEN_MAXIMUM_MATERIAL_REQUESTS      64
+class RenderLayer;
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-//! \brief Manages a layer within the rendering pipeline.
-class RenderLayer {
+class DisplayPipeline {
 public:
-    RenderLayer();
-    ~RenderLayer();
-
-    void flush();
+    DisplayPipeline();
+    ~DisplayPipeline();
 
     void execute();
-
-    size_t getId() const;
+    void flush();
 
 private:
-    size_t      m_id;
-
-    size_t      m_requestCount;
-    Material    *m_requests[ NGEN_MAXIMUM_MATERIAL_REQUESTS ];
+    size_t      m_layerCount;
+    RenderLayer **m_layerList;
 };
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-//! \brief  Retrieves the identifier associated with this layer.
-//! \return The identifier associated with this layer.
-inline size_t RenderLayer::getId() const {
-    return m_id;
-};
-
-
-////////////////////////////////////////////////////////////////////////////
-
-#endif //NGEN_RENDER_LAYER_H
+#endif //NGEN_DISPLAY_PIPELINE_H

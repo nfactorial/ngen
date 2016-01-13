@@ -14,36 +14,31 @@
 // limitations under the License.
 //
 
-#include "render_layer.h"
+#include "display_pipeline.h"
 
-
-RenderLayer::RenderLayer()
-: m_id( 0 )
-, m_requestCount( 0 )
+DisplayPipeline::DisplayPipeline()
+: m_layerCount( 0 )
+, m_layerList( nullptr )
 {
     //
 }
 
-RenderLayer::~RenderLayer() {
+DisplayPipeline::~DisplayPipeline() {
     //
 }
 
 
-//! \brief  Removes all draw requests from the render layers pipeline.
-void RenderLayer::flush() {
-    m_requestCount = 0;
+//! \brief  Removes all queued rendering operations from the pipeline.
+void DisplayPipeline::flush() {
+    for ( size_t loop = 0; loop < m_layerCount; ++loop ) {
+        //m_layerList[ loop ]->flush();
+    }
 }
 
 
-//! \brief  Adds a new draw request to the render layer
-void RenderLayer::addRequest() {
-    //
-}
-
-
-//! \brief  Performs all rendering currently queued within the layer.
-void RenderLayer::execute() {
-    for (int loop = 0; loop < m_requestCount; ++loop) {
-        //m_requests[ loop ]->execute();
+//! \brief  Performs all render operations currently queued within the pipeline.
+void DisplayPipeline::execute() {
+    for ( size_t loop = 0; loop < m_layerCount; ++loop ) {
+        //m_layerList[ loop ]->execute();
     }
 }

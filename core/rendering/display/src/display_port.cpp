@@ -14,36 +14,29 @@
 // limitations under the License.
 //
 
-#include "render_layer.h"
+#include "display_port.h"
 
 
-RenderLayer::RenderLayer()
-: m_id( 0 )
-, m_requestCount( 0 )
+////////////////////////////////////////////////////////////////////////////
+
+DisplayPort::DisplayPort()
+: m_isEnabled( true )
 {
-    //
+    m_camera.type = ngen::kCamera_Invalid;
+    m_camera.fov  = 75.0f;
 }
 
-RenderLayer::~RenderLayer() {
-    //
-}
-
-
-//! \brief  Removes all draw requests from the render layers pipeline.
-void RenderLayer::flush() {
-    m_requestCount = 0;
-}
-
-
-//! \brief  Adds a new draw request to the render layer
-void RenderLayer::addRequest() {
+DisplayPort::~DisplayPort() {
     //
 }
 
 
-//! \brief  Performs all rendering currently queued within the layer.
-void RenderLayer::execute() {
-    for (int loop = 0; loop < m_requestCount; ++loop) {
-        //m_requests[ loop ]->execute();
+//! \brief  Called by the framework when it is time for our display port to perform its rendering.
+void DisplayPort::onRender() {
+    if ( m_isEnabled && ngen::kCamera_Invalid != m_camera.type ) {
+        // TODO: Calculate projection transform for camera
+        // TODO: Calculate view transform for camera
+
+        m_pipeline.execute();
     }
 }
