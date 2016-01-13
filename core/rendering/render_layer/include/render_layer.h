@@ -28,6 +28,8 @@
 class Material;
 
 
+////////////////////////////////////////////////////////////////////////////
+
 #define NGEN_MAXIMUM_MATERIAL_REQUESTS      64
 
 
@@ -44,6 +46,8 @@ public:
     void execute();
 
     size_t getId() const;
+
+    void addRequest();
 
 private:
     size_t      m_id;
