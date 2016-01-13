@@ -8,13 +8,15 @@ include_directories(include)
 
 set(SOURCE_FILES
         src/display_port.cpp
-        src/display_pipeline.cpp)
+        src/display_pipeline.cpp
+        src/display_provider.cpp)
 
 set(INCLUDE_FILES
         include/display_port.h
         include/display_pipeline.h
         include/camera_type.h
-        include/camera_args.h)
+        include/camera_args.h
+        include/display_provider.h)
 
 add_library(ngen_display ${SOURCE_FILES} ${INCLUDE_FILES})
 

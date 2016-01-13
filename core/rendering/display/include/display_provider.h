@@ -14,49 +14,53 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_DISPLAY_PORT_H
-#define NGEN_DISPLAY_PORT_H
+#ifndef NGEN_DISPLAY_PROVIDER_H
+#define NGEN_DISPLAY_PROVIDER_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include "display_pipeline.h"
-#include "camera_args.h"
+#include <cstddef>
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class DisplayPort {
+class DisplayPort;
+
+
+////////////////////////////////////////////////////////////////////////////
+
+#define NGEN_MAXIMUM_DISPLAY_PORTS      16
+
+
+////////////////////////////////////////////////////////////////////////////
+
+class DisplayProvider {
 public:
-    DisplayPort();
-    ~DisplayPort();
+    DisplayProvider();
+    ~DisplayProvider();
 
-    // Internal methods
     void onRender();
 
-    // IDisplayPort methods
-    void getCameraArgs( ngen::CameraArgs &cameraArgs );
+    DisplayPort* createDisplayPort( const char *pipeline );
 
-    bool isEnabled() const;
-    void setEnabled( bool isEnabled );
+    size_t getDisplayPortCount() const;
 
 private:
-    bool                m_isEnabled;
-    ngen::CameraArgs    m_camera;
-    DisplayPipeline     m_pipeline;
+    size_t m_displayPortCount;
+    DisplayPort *m_displayPorts[ NGEN_MAXIMUM_DISPLAY_PORTS ];
 };
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-//! \brief  Determines whether or not the display port is currently enabled.
-//! \return <em>True</em> if the display port is enabled otherwise <em>false</em>.
-inline bool DisplayPort::isEnabled() const
-{
-    return m_isEnabled;
+//! \brief  Retrieves the number of display ports contained within the provider.
+//! \return The number of display ports within the provider.
+inline size_t DisplayProvider::getDisplayPortCount() const {
+    return m_displayPortCount;
 }
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif //NGEN_DISPLAY_PORT_H
+#endif //NGEN_DISPLAY_PROVIDER_H

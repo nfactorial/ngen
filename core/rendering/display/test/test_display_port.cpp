@@ -17,8 +17,30 @@
 #include "display_port.h"
 #include "gtest/gtest.h"
 
+//! \brief  Tests the initial state of the display when first created.
 TEST( DisplayPort, Construction ) {
     DisplayPort displayPort;
 
-    //EXPECT_EQ( 0, layer.getId() );
+    ngen::CameraArgs cameraArgs;
+    displayPort.getCameraArgs( cameraArgs );
+
+    EXPECT_TRUE( displayPort.isEnabled() );
+    EXPECT_EQ(ngen::kCamera_Invalid, cameraArgs.type );
+    EXPECT_EQ( 75.0, cameraArgs.fov );
+}
+
+
+//! \brief  Tests functionality of the enable/disable capability.
+//!
+//! TODO: Also need to verify the display port does not perform rendering when it's disabled.
+TEST( DisplayPort, EnableDisable ) {
+    DisplayPort displayPort;
+
+    EXPECT_TRUE( displayPort.isEnabled() );
+
+    displayPort.setEnabled( false );
+    EXPECT_FALSE( displayPort.isEnabled() );
+
+    displayPort.setEnabled( true );
+    EXPECT_TRUE( displayPort.isEnabled() );
 }
