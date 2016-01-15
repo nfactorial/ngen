@@ -14,24 +14,28 @@
 // limitations under the License.
 //
 
-#include "render_layer.h"
-#include "gtest/gtest.h"
+#ifndef NGEN_STORE_H
+#define NGEN_STORE_H
 
-TEST( RenderLayer, Construction ) {
-    RenderLayer layer;
+namespace ngen {
+    class Store {
+    public:
+        Store();
+        ~Store();
 
-    EXPECT_EQ( 0, layer.getId() );
-    EXPECT_EQ( 0, layer.getRequestCount() );
-    EXPECT_FALSE( layer.addRequest() );         // We cannot add a request to an uninitialized layer
-}
+        bool isBusy() const;
+
+    private:
+        bool m_isBusy;
+    };
 
 
-TEST( RenderLayer, Flush ) {
-    RenderLayer layer;
+    //! \brief  Determines whether or not the online store is currently busy.
+    //! \return <em>True</em> if the store is currently busy processing an operation otherwise <em>false</em>.
+    inline bool Store::isBusy() const {
+        return m_isBusy;
+    }
+};
 
-    // TODO: Add some requests so flush actually has something to do
 
-    layer.flush();
-
-    EXPECT_EQ( 0, layer.getRequestCount() );
-}
+#endif //NGEN_STORE_H

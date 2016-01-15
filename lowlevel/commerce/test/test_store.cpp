@@ -14,24 +14,12 @@
 // limitations under the License.
 //
 
-#include "render_layer.h"
+#include "store.h"
 #include "gtest/gtest.h"
 
-TEST( RenderLayer, Construction ) {
-    RenderLayer layer;
+//! \brief
+TEST( Store, Construction ) {
+    ngen::Store store;
 
-    EXPECT_EQ( 0, layer.getId() );
-    EXPECT_EQ( 0, layer.getRequestCount() );
-    EXPECT_FALSE( layer.addRequest() );         // We cannot add a request to an uninitialized layer
-}
-
-
-TEST( RenderLayer, Flush ) {
-    RenderLayer layer;
-
-    // TODO: Add some requests so flush actually has something to do
-
-    layer.flush();
-
-    EXPECT_EQ( 0, layer.getRequestCount() );
+    EXPECT_FALSE( store.isBusy() );
 }

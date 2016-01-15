@@ -20,12 +20,7 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <cstddef>
-
-
-////////////////////////////////////////////////////////////////////////////
-
-class Material;
+#include "material_request.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -46,14 +41,15 @@ public:
     void execute();
 
     size_t getId() const;
+    size_t getRequestCount() const;
 
-    void addRequest();
+    bool addRequest();
 
 private:
     size_t      m_id;
 
-    size_t      m_requestCount;
-    Material    *m_requests[ NGEN_MAXIMUM_MATERIAL_REQUESTS ];
+    size_t              m_requestCount;
+    MaterialRequest     m_materialRequests[ NGEN_MAXIMUM_MATERIAL_REQUESTS ];
 };
 
 
@@ -64,6 +60,13 @@ private:
 inline size_t RenderLayer::getId() const {
     return m_id;
 };
+
+
+//! \brief  Retrieves the number of material requests currently contained within this layer.
+//! \return The total number of material requests contained within the layer.
+inline size_t RenderLayer::getRequestCount() const {
+    return m_requestCount;
+}
 
 
 ////////////////////////////////////////////////////////////////////////////

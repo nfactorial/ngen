@@ -35,6 +35,8 @@ public:
     void onRender();
 
     // IDisplayPort methods
+    void dispose();
+
     void getCameraArgs( ngen::CameraArgs &cameraArgs );
 
     bool isEnabled() const;

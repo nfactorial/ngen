@@ -17,13 +17,27 @@
 #ifndef NGEN_MATERIAL_REQUEST_H
 #define NGEN_MATERIAL_REQUEST_H
 
+
+////////////////////////////////////////////////////////////////////////////
+
+#include <cstddef>
+
+
+////////////////////////////////////////////////////////////////////////////
+
 class Material;
 
 
+////////////////////////////////////////////////////////////////////////////
+
 struct MaterialRequest
 {
-    Material    *material;
+    size_t      materialId;             //!< Identifier of the material in this list
+    size_t      drawRequests;           //!< Number of draw requests for this material
+    Material    *material;              //!< Material associated with this request
 };
 
+
+////////////////////////////////////////////////////////////////////////////
 
 #endif //NGEN_MATERIAL_REQUEST_H

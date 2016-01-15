@@ -36,8 +36,8 @@ void RenderLayer::flush() {
 
 
 //! \brief  Adds a new draw request to the render layer
-void RenderLayer::addRequest() {
-    //
+bool RenderLayer::addRequest() {
+    return false;
 }
 
 

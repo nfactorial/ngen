@@ -31,6 +31,12 @@ DisplayPort::~DisplayPort() {
 }
 
 
+//! \brief  Discards the display port and removes it from memory.
+void DisplayPort::dispose() {
+    //
+}
+
+
 //! \brief  Enables or disables the display port.
 //!
 //! If a display port is disabled, its content will not be rendered.
@@ -44,6 +50,8 @@ void DisplayPort::setEnabled( bool isEnabled )
 
 
 //! \brief  Retreives teh current camera arguments assigned to this display port.
+//! \param  cameraArgs [out] -
+//!         Structure that will receive the properties describing the camera attached tot the display port.
 void DisplayPort::getCameraArgs( ngen::CameraArgs &cameraArgs )
 {
     cameraArgs = m_camera;
