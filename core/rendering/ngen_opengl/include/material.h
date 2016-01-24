@@ -20,7 +20,15 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
+#include <cstddef>
+
+
+////////////////////////////////////////////////////////////////////////////
+
 namespace ngen {
+    struct RenderArgs;
+    struct DrawRequest;
+
     class Material {
     public:
         Material();
@@ -29,7 +37,10 @@ namespace ngen {
         int getLayerId() const;
         bool isShadowAvailable() const;
 
-        // void execute( const RenderArgs &renderArgs, DrawRequest *requests );
+        void execute( const RenderArgs &renderArgs, const DrawRequest *requests, size_t requestCount );
+
+    private:
+        void executeRequest( const RenderArgs &renderArgs, const DrawRequest &drawRequest );
 
     private:
         int m_layerId;

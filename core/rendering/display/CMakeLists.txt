@@ -11,6 +11,7 @@ include_directories(${ngenExternal_SOURCE_DIR}/sce_vectormath/include/vectormath
 set(SOURCE_FILES
         src/display_port.cpp
         src/render_layer.cpp
+        src/request_provider.cpp
         src/display_pipeline.cpp
         src/display_provider.cpp)
 
@@ -18,6 +19,8 @@ set(INCLUDE_FILES
         include/display_port.h
         include/display_pipeline.h
         include/material_request.h
+        include/request_provider.h
+        include/request_queue.h
         include/render_layer.h
         include/camera_type.h
         include/camera_args.h

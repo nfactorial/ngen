@@ -40,6 +40,7 @@ namespace ngen {
     //! \brief  Adds a new draw request to the render layer
     //! \param  drawRequest [in] -
     //!         The DrawRequest instance to be added to this layer.
+    //! \return <em>True</em> if the request was added successfully otherwise <em>false</em>.
     bool RenderLayer::addRequest( const DrawRequest &drawRequest ) {
         return false;
     }

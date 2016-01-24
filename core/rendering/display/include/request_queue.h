@@ -14,30 +14,27 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_MATERIAL_REQUEST_H
-#define NGEN_MATERIAL_REQUEST_H
+#ifndef NGEN_REQUEST_QUEUE_H
+#define NGEN_REQUEST_QUEUE_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <cstddef>
+#define NGEN_REQUEST_QUEUE_CAPACITY         64
 
 
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
-    class Material;
-
-    //! \brief  This structure is used to manage a list of draw requests made for a specific material.
-    struct MaterialRequest {
-        int             materialId;         //!< Identifier of the material in this list
-        size_t          requestCount;       //!< Number of draw requests for this material
-        Material        *material;          //!< Material associated with this request
-        MaterialRequest *nextMaterial;      //!< Next material in this layer
+    struct RequestQueue {
+        Material        *material;          //!< Material referenced by this queue
+        RequestQueue    *next;              //!< Next queue for this material
+        size_t          requestCount;       //!< Number of instances in this queue
+        DrawRequest     requests[ NGEN_REQUEST_QUEUE_CAPACITY ];
     };
 }
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif //NGEN_MATERIAL_REQUEST_H
+#endif //NGEN_REQUEST_QUEUE_H

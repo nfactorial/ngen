@@ -14,6 +14,9 @@
 // limitations under the License.
 //
 
+#include <ngen/renderer/draw_request.h>
+#include <cassert>
+
 #include "material.h"
 
 namespace ngen {
@@ -27,5 +30,30 @@ namespace ngen {
     Material::~Material()
     {
         //
+    }
+
+    //! \brief  Renders a list of draw requests using the current material.
+    //! \param  renderArgs [in] -
+    //!         Miscellaneous variables associated with the view being rendered.
+    //! \param  requests [in] -
+    //!         Pointer to list of draw requests that are to be rendered.
+    //! \param  requestCount [in] -
+    //!         Number of requests in the supplied list.
+    void Material::execute( const RenderArgs &renderArgs, const DrawRequest *requests, size_t requestCount ) {
+        assert( nullptr != requests );
+
+        // NOTE: The request list may be a linked-list instead of an array in the future.
+        for ( size_t loop = 0; loop < requestCount; ++loop ) {
+            executeRequest( renderArgs, requests[ loop ] );
+        }
+    }
+
+    //! \brief  Renders a single draw request using the current material.
+    //! \param  renderArgs [in] -
+    //!         Miscellaneous variables associated with the view being rendered.
+    //! \param  drawRequest [in] -
+    //!         The DrawRequest instance to be rendered.
+    void Material::executeRequest( const RenderArgs &renderArgs, const DrawRequest &drawRequest ) {
+        // TODO: Perform rendering
     }
 }
