@@ -17,7 +17,6 @@
 #include "shader.h"
 #include <cassert>
 
-
 // http://lazyfoo.net/tutorials/SDL/51_SDL_and_modern_opengl/
 
 namespace ngen {

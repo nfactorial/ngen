@@ -26,36 +26,39 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-class DisplayPort {
-public:
-    DisplayPort();
-    ~DisplayPort();
+namespace ngen {
+    class DisplayPort {
+    public:
+        DisplayPort();
 
-    // Internal methods
-    void onRender();
+        ~DisplayPort();
 
-    // IDisplayPort methods
-    void dispose();
+        // Internal methods
+        void onRender();
 
-    void getCameraArgs( ngen::CameraArgs &cameraArgs );
+        // IDisplayPort methods
+        void dispose();
 
-    bool isEnabled() const;
-    void setEnabled( bool isEnabled );
+        void getCameraArgs(ngen::CameraArgs &cameraArgs);
 
-private:
-    bool                m_isEnabled;
-    ngen::CameraArgs    m_cameraArgs;
-    DisplayPipeline     m_pipeline;
-};
+        bool isEnabled() const;
+
+        void setEnabled(bool isEnabled);
+
+    private:
+        bool m_isEnabled;
+        CameraArgs m_cameraArgs;
+        DisplayPipeline m_pipeline;
+    };
 
 
-////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
 
-//! \brief  Determines whether or not the display port is currently enabled.
-//! \return <em>True</em> if the display port is enabled otherwise <em>false</em>.
-inline bool DisplayPort::isEnabled() const
-{
-    return m_isEnabled;
+    //! \brief  Determines whether or not the display port is currently enabled.
+    //! \return <em>True</em> if the display port is enabled otherwise <em>false</em>.
+    inline bool DisplayPort::isEnabled() const {
+        return m_isEnabled;
+    }
 }
 
 

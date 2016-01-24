@@ -14,41 +14,32 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_DISPLAY_PIPELINE_H
-#define NGEN_DISPLAY_PIPELINE_H
+#ifndef NGEN_DRAW_REQUEST_H
+#define NGEN_DRAW_REQUEST_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <cstddef>
-#include <ngen/renderer/draw_request.h>
+#include <vectormath_aos.h>
 
 
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
-    class RenderLayer;
+    class Geometry;
+    class Material;
 
-    //! \brief  Manages a rendering pipeline for a single display port.
-    class DisplayPipeline {
-    public:
-        DisplayPipeline();
-
-        ~DisplayPipeline();
-
-        void execute();
-
-        void flush();
-
-        bool addRequest(const DrawRequest &drawRequest);
-
-    private:
-        size_t m_layerCount;
-        RenderLayer **m_layerList;
+    //! \brief  A draw request represents a block of geometry to be rendered by the framework.
+    struct DrawRequest {
+        int layerId;
+        Geometry *geometry;
+        Material *material;
+        Vectormath::Aos::Vector3    position;
+        Vectormath::Aos::Matrix3    orientation;
     };
 }
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif //NGEN_DISPLAY_PIPELINE_H
+#endif //NGEN_DRAW_REQUEST_H

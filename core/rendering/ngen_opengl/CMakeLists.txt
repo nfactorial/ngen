@@ -17,6 +17,7 @@ endif (OPENGL_FOUND)
 
 include_directories(include)
 include_directories(${ngen_rendering_SOURCE_DIR}/include)
+include_directories(${ngenExternal_SOURCE_DIR}/sce_vectormath/include/vectormath/SSE/cpp) # TODO: Simplify this
 
 set(SOURCE_FILES
         src/buffer_object.cpp

@@ -25,39 +25,39 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-class DisplayPort;
-
-
-////////////////////////////////////////////////////////////////////////////
-
 #define NGEN_MAXIMUM_DISPLAY_PORTS      16
 
 
 ////////////////////////////////////////////////////////////////////////////
+namespace ngen {
+    class DisplayPort;
 
-class DisplayProvider {
-public:
-    DisplayProvider();
-    ~DisplayProvider();
+    //! \brief  Manages all renderable displays within the running title.
+    class DisplayProvider {
+    public:
+        DisplayProvider();
 
-    void onRender();
+        ~DisplayProvider();
 
-    DisplayPort* createDisplayPort( const char *pipeline );
+        void onRender();
 
-    size_t getDisplayPortCount() const;
+        DisplayPort *createDisplayPort(const char *pipeline);
 
-private:
-    size_t m_displayPortCount;
-    DisplayPort *m_displayPorts[ NGEN_MAXIMUM_DISPLAY_PORTS ];
-};
+        size_t getDisplayPortCount() const;
+
+    private:
+        size_t m_displayPortCount;
+        DisplayPort *m_displayPorts[NGEN_MAXIMUM_DISPLAY_PORTS];
+    };
 
 
-////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
 
-//! \brief  Retrieves the number of display ports contained within the provider.
-//! \return The number of display ports within the provider.
-inline size_t DisplayProvider::getDisplayPortCount() const {
-    return m_displayPortCount;
+    //! \brief  Retrieves the number of display ports contained within the provider.
+    //! \return The number of display ports within the provider.
+    inline size_t DisplayProvider::getDisplayPortCount() const {
+        return m_displayPortCount;
+    }
 }
 
 

@@ -17,31 +17,31 @@
 #include "display_provider.h"
 #include "display_port.h"
 
-DisplayProvider::DisplayProvider()
-: m_displayPortCount( 0 )
-{
-    //
-}
-
-DisplayProvider::~DisplayProvider() {
-    //
-}
-
-
-//! \brief  Called when it is time for all display ports to be rendered.
-void DisplayProvider::onRender()
-{
-    for ( size_t loop = 0; loop < m_displayPortCount; ++loop ) {
-        m_displayPorts[ loop ]->onRender();
+namespace ngen {
+    DisplayProvider::DisplayProvider()
+    : m_displayPortCount(0)
+    {
+        //
     }
-}
+
+    DisplayProvider::~DisplayProvider() {
+        //
+    }
 
 
-//! \brief  Creates a new display port and associates it with a specified rendering pipeline.
-//! \param  pipeline [in] -
-//!         Name of the rendering pipeline to be associated with the new display port.
-//! \return New DisplayPort instance, if the pipeline could not be found or the display port could not be created this method returns <em>nullptr</em>.
-DisplayPort* DisplayProvider::createDisplayPort( const char *pipeline )
-{
-    return nullptr;
+    //! \brief  Called when it is time for all display ports to be rendered.
+    void DisplayProvider::onRender() {
+        for (size_t loop = 0; loop < m_displayPortCount; ++loop) {
+            m_displayPorts[loop]->onRender();
+        }
+    }
+
+
+    //! \brief  Creates a new display port and associates it with a specified rendering pipeline.
+    //! \param  pipeline [in] -
+    //!         Name of the rendering pipeline to be associated with the new display port.
+    //! \return New DisplayPort instance, if the pipeline could not be found or the display port could not be created this method returns <em>nullptr</em>.
+    DisplayPort *DisplayProvider::createDisplayPort(const char *pipeline) {
+        return nullptr;
+    }
 }

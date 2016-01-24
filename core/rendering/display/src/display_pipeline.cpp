@@ -15,47 +15,47 @@
 //
 
 #include "display_pipeline.h"
+#include "render_layer.h"
 
-DisplayPipeline::DisplayPipeline()
-: m_layerCount( 0 )
-, m_layerList( nullptr )
-{
-    //
-}
-
-DisplayPipeline::~DisplayPipeline() {
-    //
-}
-
-
-//! \brief  Removes all queued rendering operations from the pipeline.
-void DisplayPipeline::flush() {
-    for ( size_t loop = 0; loop < m_layerCount; ++loop ) {
-        //m_layerList[ loop ]->flush();
+namespace ngen {
+    DisplayPipeline::DisplayPipeline()
+    : m_layerCount(0)
+    , m_layerList(nullptr)
+    {
+        //
     }
-}
 
-
-//! \brief  Performs all render operations currently queued within the pipeline.
-void DisplayPipeline::execute() {
-    for ( size_t loop = 0; loop < m_layerCount; ++loop ) {
-        //m_layerList[ loop ]->execute();
+    DisplayPipeline::~DisplayPipeline() {
+        //
     }
-}
 
 
-//! \brief  Adds a new draw request to the rendering pipeline.
-bool DisplayPipeline::addRequest( )
-{
-/*
-    if ( drawRequest.material ) {
-        const int layerId = drawRequest.material->getLayerId();
-
+    //! \brief  Removes all queued rendering operations from the pipeline.
+    void DisplayPipeline::flush() {
         for (size_t loop = 0; loop < m_layerCount; ++loop) {
-            if (m_layerList[loop]->getId() == drawRequest.id) {
-                m_layerList[loop]->addRequest( drawRequest );
-            }
+            m_layerList[ loop ]->flush();
         }
     }
-*/
+
+
+    //! \brief  Performs all render operations currently queued within the pipeline.
+    void DisplayPipeline::execute() {
+        for (size_t loop = 0; loop < m_layerCount; ++loop) {
+            m_layerList[ loop ]->execute();
+        }
+    }
+
+
+    //! \brief  Adds a new draw request to the rendering pipeline.
+    bool DisplayPipeline::addRequest( const DrawRequest &drawRequest ) {
+        if (drawRequest.material) {
+            for (size_t loop = 0; loop < m_layerCount; ++loop) {
+                if (m_layerList[loop]->getId() == drawRequest.layerId) {
+                    return m_layerList[loop]->addRequest( drawRequest );
+                }
+            }
+        }
+
+        return false;
+    }
 }

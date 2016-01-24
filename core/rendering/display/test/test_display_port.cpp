@@ -19,7 +19,7 @@
 
 //! \brief  Tests the initial state of the display when first created.
 TEST( DisplayPort, Construction ) {
-    DisplayPort displayPort;
+    ngen::DisplayPort displayPort;
 
     ngen::CameraArgs cameraArgs;
     displayPort.getCameraArgs( cameraArgs );
@@ -34,7 +34,7 @@ TEST( DisplayPort, Construction ) {
 //!
 //! TODO: Also need to verify the display port does not perform rendering when it's disabled.
 TEST( DisplayPort, EnableDisable ) {
-    DisplayPort displayPort;
+    ngen::DisplayPort displayPort;
 
     EXPECT_TRUE( displayPort.isEnabled() );
 

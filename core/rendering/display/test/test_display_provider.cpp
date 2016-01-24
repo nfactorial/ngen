@@ -19,7 +19,7 @@
 
 //! \brief  Tests the initial state of the display manager when first created.
 TEST( DisplayProvider, Construction ) {
-    DisplayProvider provider;
+    ngen::DisplayProvider provider;
 
     EXPECT_EQ( 0, provider.getDisplayPortCount() );
 }
@@ -27,9 +27,9 @@ TEST( DisplayProvider, Construction ) {
 
 //! \brief  Tests we can successfully create a display port.
 TEST( DisplayProvider, CreatePort ) {
-    DisplayProvider provider;
+    ngen::DisplayProvider provider;
 
-    DisplayPort *port = provider.createDisplayPort( "test_pipeline" );
+    ngen::DisplayPort *port = provider.createDisplayPort( "test_pipeline" );
 
     EXPECT_EQ( 1, provider.getDisplayPortCount() );
     EXPECT_NE( nullptr, port );

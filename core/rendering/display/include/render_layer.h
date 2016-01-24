@@ -20,6 +20,7 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
+#include <cstddef>
 #include "material_request.h"
 
 
@@ -30,42 +31,48 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-//! \brief Manages a layer within the rendering pipeline.
-class RenderLayer {
-public:
-    RenderLayer();
-    ~RenderLayer();
+namespace ngen {
+    struct DrawRequest;
 
-    void flush();
+    //! \brief Manages a layer within the rendering pipeline.
+    class RenderLayer {
+    public:
+        RenderLayer();
 
-    void execute();
+        ~RenderLayer();
 
-    size_t getId() const;
-    size_t getRequestCount() const;
+        void flush();
 
-    bool addRequest();
+        void execute();
 
-private:
-    size_t      m_id;
+        size_t getId() const;
 
-    size_t              m_requestCount;
-    MaterialRequest     m_materialRequests[ NGEN_MAXIMUM_MATERIAL_REQUESTS ];
-};
+        size_t getRequestCount() const;
 
+        bool addRequest( const DrawRequest &drawRequest );
 
-////////////////////////////////////////////////////////////////////////////
+    private:
+        size_t m_id;
 
-//! \brief  Retrieves the identifier associated with this layer.
-//! \return The identifier associated with this layer.
-inline size_t RenderLayer::getId() const {
-    return m_id;
-};
+        size_t m_requestCount;
+        MaterialRequest m_materialRequests[NGEN_MAXIMUM_MATERIAL_REQUESTS];
+    };
 
 
-//! \brief  Retrieves the number of material requests currently contained within this layer.
-//! \return The total number of material requests contained within the layer.
-inline size_t RenderLayer::getRequestCount() const {
-    return m_requestCount;
+    ////////////////////////////////////////////////////////////////////////////
+
+    //! \brief  Retrieves the identifier associated with this layer.
+    //! \return The identifier associated with this layer.
+    inline size_t RenderLayer::getId() const {
+        return m_id;
+    };
+
+
+    //! \brief  Retrieves the number of material requests currently contained within this layer.
+    //! \return The total number of material requests contained within the layer.
+    inline size_t RenderLayer::getRequestCount() const {
+        return m_requestCount;
+    }
 }
 
 

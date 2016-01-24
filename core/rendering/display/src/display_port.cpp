@@ -19,51 +19,50 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-DisplayPort::DisplayPort()
-: m_isEnabled( true )
-{
-    m_cameraArgs.type = ngen::kCamera_Invalid;
-    m_cameraArgs.fov  = 75.0f;
-}
+namespace ngen {
+    DisplayPort::DisplayPort()
+            : m_isEnabled(true) {
+        m_cameraArgs.type = ngen::kCamera_Invalid;
+        m_cameraArgs.fov = 75.0f;
+    }
 
-DisplayPort::~DisplayPort() {
-    //
-}
-
-
-//! \brief  Discards the display port and removes it from memory.
-void DisplayPort::dispose() {
-    //
-}
+    DisplayPort::~DisplayPort() {
+        //
+    }
 
 
-//! \brief  Enables or disables the display port.
-//!
-//! If a display port is disabled, its content will not be rendered.
-//!
-//! \param  isEnabled [in] -
-//!         <em>True</em> to enable the display port or <em>false</em> to disable.
-void DisplayPort::setEnabled( bool isEnabled )
-{
-    m_isEnabled = isEnabled;
-}
+    //! \brief  Discards the display port and removes it from memory.
+    void DisplayPort::dispose() {
+        //
+    }
 
 
-//! \brief  Retreives teh current camera arguments assigned to this display port.
-//! \param  cameraArgs [out] -
-//!         Structure that will receive the properties describing the camera attached tot the display port.
-void DisplayPort::getCameraArgs( ngen::CameraArgs &cameraArgs )
-{
-    cameraArgs = m_cameraArgs;
-}
+    //! \brief  Enables or disables the display port.
+    //!
+    //! If a display port is disabled, its content will not be rendered.
+    //!
+    //! \param  isEnabled [in] -
+    //!         <em>True</em> to enable the display port or <em>false</em> to disable.
+    void DisplayPort::setEnabled(bool isEnabled) {
+        m_isEnabled = isEnabled;
+    }
 
 
-//! \brief  Called by the framework when it is time for our display port to perform its rendering.
-void DisplayPort::onRender() {
-    if ( m_isEnabled && ngen::kCamera_Invalid != m_cameraArgs.type ) {
-        // TODO: Calculate projection transform for camera
-        // TODO: Calculate view transform for camera
+    //! \brief  Retreives teh current camera arguments assigned to this display port.
+    //! \param  cameraArgs [out] -
+    //!         Structure that will receive the properties describing the camera attached tot the display port.
+    void DisplayPort::getCameraArgs(ngen::CameraArgs &cameraArgs) {
+        cameraArgs = m_cameraArgs;
+    }
 
-        m_pipeline.execute();
+
+    //! \brief  Called by the framework when it is time for our display port to perform its rendering.
+    void DisplayPort::onRender() {
+        if (m_isEnabled && ngen::kCamera_Invalid != m_cameraArgs.type) {
+            // TODO: Calculate projection transform for camera
+            // TODO: Calculate view transform for camera
+
+            m_pipeline.execute();
+        }
     }
 }

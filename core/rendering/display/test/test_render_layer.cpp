@@ -14,20 +14,25 @@
 // limitations under the License.
 //
 
+#include <ngen/renderer/draw_request.h>
 #include "render_layer.h"
 #include "gtest/gtest.h"
 
 TEST( RenderLayer, Construction ) {
-    RenderLayer layer;
+    ngen::RenderLayer layer;
+
+    ngen::DrawRequest request;
+
+    request.layerId = 0;
 
     EXPECT_EQ( 0, layer.getId() );
     EXPECT_EQ( 0, layer.getRequestCount() );
-    EXPECT_FALSE( layer.addRequest() );         // We cannot add a request to an uninitialized layer
+    EXPECT_FALSE( layer.addRequest( request ) );         // We cannot add a request to an uninitialized layer
 }
 
 
 TEST( RenderLayer, Flush ) {
-    RenderLayer layer;
+    ngen::RenderLayer layer;
 
     // TODO: Add some requests so flush actually has something to do
 
