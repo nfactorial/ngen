@@ -22,7 +22,7 @@ class Server {
             throw new Error( 'Server::start - Cannot start server, server is already created.' );
         }
 
-        this.atatus = Server.STATUS_STARTING;
+        this.status = Server.STATUS_STARTING;
         this.lastSeen = Date.now();
 
         // TODO: Create listen socket for the server to connect to once it is ready.
