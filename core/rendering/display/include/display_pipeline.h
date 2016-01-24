@@ -35,7 +35,6 @@ namespace ngen {
     class DisplayPipeline {
     public:
         DisplayPipeline();
-
         ~DisplayPipeline();
 
         void execute( const RenderArgs &renderArgs );

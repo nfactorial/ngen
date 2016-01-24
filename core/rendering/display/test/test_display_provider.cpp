@@ -16,6 +16,7 @@
 
 #include "display_provider.h"
 #include "gtest/gtest.h"
+#include "display_port.h"
 
 //! \brief  Tests the initial state of the display manager when first created.
 TEST( DisplayProvider, Construction ) {
@@ -29,8 +30,22 @@ TEST( DisplayProvider, Construction ) {
 TEST( DisplayProvider, CreatePort ) {
     ngen::DisplayProvider provider;
 
-    ngen::DisplayPort *port = provider.createDisplayPort( "test_pipeline" );
+    const char *kPipelineName = "test_pipeline";
 
-    EXPECT_EQ( 1, provider.getDisplayPortCount() );
-    EXPECT_NE( nullptr, port );
+    ngen::DisplayPort* ports[ NGEN_MAXIMUM_DISPLAY_PORTS ];
+
+    for ( size_t loop = 0; loop < NGEN_MAXIMUM_DISPLAY_PORTS; ++loop ) {
+        ports[ loop ] = provider.createDisplayPort( kPipelineName );
+        EXPECT_NE( nullptr, ports[ loop ] );
+    }
+
+    // Next allocation should fail, as all the display ports have been allocated.
+    EXPECT_EQ( nullptr, provider.createDisplayPort( kPipelineName ) );
+
+    // Delete allocated display ports
+    for ( size_t loop = 0; loop < NGEN_MAXIMUM_DISPLAY_PORTS; ++loop ) {
+        EXPECT_TRUE( provider.deletePort( ports[ loop ] ) );
+    }
+
+    EXPECT_FALSE( provider.deletePort( nullptr ) );
 }

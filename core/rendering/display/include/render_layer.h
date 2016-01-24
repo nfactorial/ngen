@@ -40,7 +40,6 @@ namespace ngen {
     class RenderLayer {
     public:
         RenderLayer();
-
         ~RenderLayer();
 
         void flush();

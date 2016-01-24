@@ -14,6 +14,8 @@
 // limitations under the License.
 //
 
+#include <cassert>
+
 #include "request_provider.h"
 #include "material_request.h"
 
@@ -31,7 +33,7 @@ namespace ngen {
 
     RequestProvider::~RequestProvider()
     {
-        //
+        assert( nullptr == m_requests );
     }
 
 

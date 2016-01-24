@@ -21,6 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include <cstddef>
+#include "request_provider.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -29,6 +30,7 @@
 
 
 ////////////////////////////////////////////////////////////////////////////
+
 namespace ngen {
     class DisplayPort;
 
@@ -36,16 +38,18 @@ namespace ngen {
     class DisplayProvider {
     public:
         DisplayProvider();
-
         ~DisplayProvider();
 
         void onRender();
 
-        DisplayPort *createDisplayPort(const char *pipeline);
+        bool deletePort( DisplayPort *port );
+        DisplayPort* createDisplayPort(const char *pipeline);
 
         size_t getDisplayPortCount() const;
 
     private:
+        RequestProvider m_requestProvider;
+
         size_t m_displayPortCount;
         DisplayPort *m_displayPorts[NGEN_MAXIMUM_DISPLAY_PORTS];
     };

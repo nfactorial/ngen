@@ -37,11 +37,35 @@ namespace ngen {
     }
 
 
+    bool DisplayProvider::deletePort( DisplayPort *port ) {
+        for ( size_t loop = 0; loop < NGEN_MAXIMUM_DISPLAY_PORTS; ++loop ) {
+            if ( m_displayPorts[ loop ] == port ) {
+                delete m_displayPorts[ loop ];
+
+                m_displayPorts[ loop ] = m_displayPorts[ --m_displayPortCount ];
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     //! \brief  Creates a new display port and associates it with a specified rendering pipeline.
     //! \param  pipeline [in] -
     //!         Name of the rendering pipeline to be associated with the new display port.
     //! \return New DisplayPort instance, if the pipeline could not be found or the display port could not be created this method returns <em>nullptr</em>.
-    DisplayPort *DisplayProvider::createDisplayPort(const char *pipeline) {
+    DisplayPort* DisplayProvider::createDisplayPort(const char *pipeline) {
+        if ( m_displayPortCount < NGEN_MAXIMUM_DISPLAY_PORTS ) {
+            DisplayPort *displayPort = new DisplayPort();       // TODO: Use allocator
+            if (displayPort->initialize(m_requestProvider)) {
+                m_displayPorts[m_displayPortCount++] = displayPort;
+                return displayPort;
+            }
+
+            delete displayPort;
+        }
+
         return nullptr;
     }
 }

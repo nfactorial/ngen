@@ -34,9 +34,23 @@ namespace ngen {
     }
 
 
+    //! \brief  Prepares the display port for use by the running title.
+    //! \param  requestProvider [in] -
+    //!         The request provider that will be used by the render layers.
+    //! return  <em>True</em> if the display port initialized successfully otherwise <em>false</em>.
+    bool DisplayPort::initialize( RequestProvider &requestProvider ) {
+        if ( nullptr == m_requestProvider ) {
+            m_requestProvider = &requestProvider;
+            return true;
+        }
+
+        return false;
+    }
+
+
     //! \brief  Discards the display port and removes it from memory.
     void DisplayPort::dispose() {
-        //
+        m_requestProvider = nullptr;
     }
 
 

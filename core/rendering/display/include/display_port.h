@@ -28,13 +28,17 @@
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
+    class RequestProvider;
+
+    //! \brief  Represents a view into the world.
     class DisplayPort {
     public:
         DisplayPort();
-
         ~DisplayPort();
 
         // Internal methods
+        bool initialize( RequestProvider &requestProvider );
+
         void onRender();
 
         // IDisplayPort methods
@@ -50,6 +54,8 @@ namespace ngen {
         void prepareRenderArgs( const CameraArgs &cameraArgs, float aspectRatio );
 
     private:
+        RequestProvider *m_requestProvider;
+
         bool m_isEnabled;
         CameraArgs m_cameraArgs;
         RenderArgs m_renderArgs;
