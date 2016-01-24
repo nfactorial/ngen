@@ -14,38 +14,30 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_DISPLAY_PIPELINE_H
-#define NGEN_DISPLAY_PIPELINE_H
+#ifndef NGEN_TEXTURE_DESC_H
+#define NGEN_TEXTURE_DESC_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <cstddef>
+#include "surface_format.h"
+#include "texture_type.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class RenderLayer;
+namespace ngen {
+    //! \brief  Describes a texture object within the system.
+    struct TextureDesc {
+        bool            renderTarget;
+        int             width;
+        int             height;
+        kTextureType    type;
+        kSurfaceFormat  format;
+    };
+}
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class DisplayPipeline {
-public:
-    DisplayPipeline();
-    ~DisplayPipeline();
-
-    void execute();
-    void flush();
-
-    void addRequest( );
-
-private:
-    size_t      m_layerCount;
-    RenderLayer **m_layerList;
-};
-
-
-////////////////////////////////////////////////////////////////////////////
-
-#endif //NGEN_DISPLAY_PIPELINE_H
+#endif //NGEN_TEXTURE_DESC_H

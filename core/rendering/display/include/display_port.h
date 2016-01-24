@@ -44,7 +44,7 @@ public:
 
 private:
     bool                m_isEnabled;
-    ngen::CameraArgs    m_camera;
+    ngen::CameraArgs    m_cameraArgs;
     DisplayPipeline     m_pipeline;
 };
 

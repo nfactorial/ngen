@@ -14,38 +14,44 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_DISPLAY_PIPELINE_H
-#define NGEN_DISPLAY_PIPELINE_H
+#ifndef NGEN_BUFFER_OBJECT_H
+#define NGEN_BUFFER_OBJECT_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <cstddef>
+#include <OpenGL/gl.h>
+#include <stddef.h>
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class RenderLayer;
+namespace ngen {
+    class GLBufferObject {
+    public:
+        GLBufferObject();
+        ~GLBufferObject();
+
+        bool initialize( const void *data, size_t length );
+
+        void dispose();
+
+        GLuint getId() const;
+
+    private:
+        size_t m_length;
+        GLuint  m_id;
+    };
+
+
+    //! \brief  Retrieves the identifier of the OpenGL buffer.
+    //! \return The OpenGL identifier of the buffer object.
+    inline GLuint GLBufferObject::getId() const {
+        return m_id;
+    }
+}
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class DisplayPipeline {
-public:
-    DisplayPipeline();
-    ~DisplayPipeline();
-
-    void execute();
-    void flush();
-
-    void addRequest( );
-
-private:
-    size_t      m_layerCount;
-    RenderLayer **m_layerList;
-};
-
-
-////////////////////////////////////////////////////////////////////////////
-
-#endif //NGEN_DISPLAY_PIPELINE_H
+#endif //NGEN_BUFFER_OBJECT_H

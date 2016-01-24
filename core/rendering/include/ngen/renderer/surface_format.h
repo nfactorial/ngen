@@ -14,38 +14,21 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_DISPLAY_PIPELINE_H
-#define NGEN_DISPLAY_PIPELINE_H
+#ifndef NGEN_TEXTURE_FORMAT_H
+#define NGEN_TEXTURE_FORMAT_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <cstddef>
+namespace ngen {
+    enum kSurfaceFormat {
+        kSurfaceFormat_Invalid,
+        kSurfaceFormat_RGB8,
+        kSurfaceFormat_RGBA8,
+    };
+}
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class RenderLayer;
-
-
-////////////////////////////////////////////////////////////////////////////
-
-class DisplayPipeline {
-public:
-    DisplayPipeline();
-    ~DisplayPipeline();
-
-    void execute();
-    void flush();
-
-    void addRequest( );
-
-private:
-    size_t      m_layerCount;
-    RenderLayer **m_layerList;
-};
-
-
-////////////////////////////////////////////////////////////////////////////
-
-#endif //NGEN_DISPLAY_PIPELINE_H
+#endif //NGEN_TEXTURE_FORMAT_H

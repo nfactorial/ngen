@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.3)
 
+set(CMAKE_OSX_ARCHITECTURES x86_64)
+#set(CMAKE_OSX_ARCHITECTURES i386)
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 option(ngen_build_tests "Build unit tests." ON)
 
 add_subdirectory(external)
@@ -15,3 +20,5 @@ project(ngen)
 add_subdirectory(core)
 add_subdirectory(lowlevel)
 add_subdirectory(highlevel)
+
+add_subdirectory(examples)

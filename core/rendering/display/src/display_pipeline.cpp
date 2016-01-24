@@ -42,3 +42,20 @@ void DisplayPipeline::execute() {
         //m_layerList[ loop ]->execute();
     }
 }
+
+
+//! \brief  Adds a new draw request to the rendering pipeline.
+bool DisplayPipeline::addRequest( )
+{
+/*
+    if ( drawRequest.material ) {
+        const int layerId = drawRequest.material->getLayerId();
+
+        for (size_t loop = 0; loop < m_layerCount; ++loop) {
+            if (m_layerList[loop]->getId() == drawRequest.id) {
+                m_layerList[loop]->addRequest( drawRequest );
+            }
+        }
+    }
+*/
+}

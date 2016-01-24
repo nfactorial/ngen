@@ -14,38 +14,43 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_DISPLAY_PIPELINE_H
-#define NGEN_DISPLAY_PIPELINE_H
+#ifndef NGEN_SHADER_H
+#define NGEN_SHADER_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <cstddef>
+#include <OpenGL/gl.h>
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class RenderLayer;
+namespace ngen {
+    class GLShader {
+    public:
+        GLShader( int type );
+        ~GLShader();
+
+        bool initialize( const char *source );
+
+        void dispose();
+
+        GLuint getId() const;
+
+    private:
+        int m_type;
+        GLuint m_id;
+    };
+
+
+    //! \brief  Retrieves the identifier of the shader object.
+    //! \return The identifier of the shader object.
+    inline GLuint GLShader::getId() const {
+        return m_id;
+    }
+}
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class DisplayPipeline {
-public:
-    DisplayPipeline();
-    ~DisplayPipeline();
-
-    void execute();
-    void flush();
-
-    void addRequest( );
-
-private:
-    size_t      m_layerCount;
-    RenderLayer **m_layerList;
-};
-
-
-////////////////////////////////////////////////////////////////////////////
-
-#endif //NGEN_DISPLAY_PIPELINE_H
+#endif //NGEN_SHADER_H

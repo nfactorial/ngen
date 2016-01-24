@@ -14,38 +14,24 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_DISPLAY_PIPELINE_H
-#define NGEN_DISPLAY_PIPELINE_H
+#ifndef NGEN_RENDER_ARGS_H_H
+#define NGEN_RENDER_ARGS_H_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <cstddef>
+namespace ngen {
+    //! \brief  Parameters for the current frame being rendered.
+    struct RenderArgs {
+        //float     m_timer;
+        //Vector3   m_viewPosition;
+        //Vector3   m_viewDirection;
+        //Matrix    m_viewTransform;
+        //Matrix    m_projection;
+    };
+}
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class RenderLayer;
-
-
-////////////////////////////////////////////////////////////////////////////
-
-class DisplayPipeline {
-public:
-    DisplayPipeline();
-    ~DisplayPipeline();
-
-    void execute();
-    void flush();
-
-    void addRequest( );
-
-private:
-    size_t      m_layerCount;
-    RenderLayer **m_layerList;
-};
-
-
-////////////////////////////////////////////////////////////////////////////
-
-#endif //NGEN_DISPLAY_PIPELINE_H
+#endif //NGEN_RENDER_ARGS_H_H

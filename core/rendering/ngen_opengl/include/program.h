@@ -14,38 +14,35 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_DISPLAY_PIPELINE_H
-#define NGEN_DISPLAY_PIPELINE_H
+#ifndef NGEN_PROGRAM_H
+#define NGEN_PROGRAM_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <cstddef>
+#include <OpenGL/gl.h>
+#include "shader.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class RenderLayer;
+namespace ngen {
+    class GLProgram {
+    public:
+        GLProgram();
+        ~GLProgram();
+
+        bool initialize();
+        void dispose();
+
+    private:
+        GLuint      m_id;
+        GLShader    m_vertexShader;
+        GLShader    m_pixelShader;
+    };
+}
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-class DisplayPipeline {
-public:
-    DisplayPipeline();
-    ~DisplayPipeline();
-
-    void execute();
-    void flush();
-
-    void addRequest( );
-
-private:
-    size_t      m_layerCount;
-    RenderLayer **m_layerList;
-};
-
-
-////////////////////////////////////////////////////////////////////////////
-
-#endif //NGEN_DISPLAY_PIPELINE_H
+#endif //NGEN_PROGRAM_H
