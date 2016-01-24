@@ -18,6 +18,7 @@ set(INCLUDE_FILES
         include/display_port.h
         include/display_pipeline.h
         include/material_request.h
+        include/render_args.h
         include/render_layer.h
         include/camera_type.h
         include/camera_args.h

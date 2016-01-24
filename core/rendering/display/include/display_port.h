@@ -22,6 +22,7 @@
 
 #include "display_pipeline.h"
 #include "camera_args.h"
+#include "render_args.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -46,8 +47,12 @@ namespace ngen {
         void setEnabled(bool isEnabled);
 
     private:
+        void prepareRenderArgs( const CameraArgs &cameraArgs, float aspectRatio );
+
+    private:
         bool m_isEnabled;
         CameraArgs m_cameraArgs;
+        RenderArgs m_renderArgs;
         DisplayPipeline m_pipeline;
     };
 

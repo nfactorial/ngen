@@ -27,6 +27,8 @@
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
+    struct RenderArgs;
+
     class RenderLayer;
 
     //! \brief  Manages a rendering pipeline for a single display port.
@@ -36,7 +38,7 @@ namespace ngen {
 
         ~DisplayPipeline();
 
-        void execute();
+        void execute( const RenderArgs &renderArgs );
 
         void flush();
 

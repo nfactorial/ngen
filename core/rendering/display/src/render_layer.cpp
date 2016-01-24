@@ -15,6 +15,7 @@
 //
 
 #include "render_layer.h"
+#include "render_args.h"
 
 
 namespace ngen {
@@ -45,7 +46,9 @@ namespace ngen {
 
 
     //! \brief  Performs all rendering currently queued within the layer.
-    void RenderLayer::execute() {
+    //! \param  renderArgs [in] -
+    //!         Miscellaneous variables associated with the view being rendered.
+    void RenderLayer::execute( const RenderArgs &renderArgs ) {
         for (int loop = 0; loop < m_requestCount; ++loop) {
             //m_requests[ loop ]->execute();
         }

@@ -32,7 +32,9 @@
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
+    struct RenderArgs;
     struct DrawRequest;
+
 
     //! \brief Manages a layer within the rendering pipeline.
     class RenderLayer {
@@ -43,7 +45,7 @@ namespace ngen {
 
         void flush();
 
-        void execute();
+        void execute( const RenderArgs &renderArgs );
 
         size_t getId() const;
 

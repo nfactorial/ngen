@@ -20,6 +20,8 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
+#include <vectormath_aos.h>
+
 #include "camera_type.h"
 
 
@@ -27,10 +29,12 @@
 
 namespace ngen {
     struct CameraArgs {
-        kCamera_Type type;
-        float fov;                  // Field of view (for perspective cameras)
-        //Vector3 position;         // World position
-        //Quaternion orientation;   // Camera rotation
+        kCamera_Type                type;
+        float                       fov;                  // Field of view (for perspective cameras)
+        float                       zNear;
+        float                       zFar;
+        Vectormath::Aos::Vector3    position;
+        Vectormath::Aos::Quat       orientation;
     };
 }
 

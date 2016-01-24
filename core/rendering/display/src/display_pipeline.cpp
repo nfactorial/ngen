@@ -16,6 +16,8 @@
 
 #include "display_pipeline.h"
 #include "render_layer.h"
+#include "render_args.h"
+
 
 namespace ngen {
     DisplayPipeline::DisplayPipeline()
@@ -39,9 +41,11 @@ namespace ngen {
 
 
     //! \brief  Performs all render operations currently queued within the pipeline.
-    void DisplayPipeline::execute() {
+    //! \param  renderArgs [in] -
+    //!         Miscellaneous variables associated with the view being rendered.
+    void DisplayPipeline::execute( const RenderArgs &renderArgs ) {
         for (size_t loop = 0; loop < m_layerCount; ++loop) {
-            m_layerList[ loop ]->execute();
+            m_layerList[ loop ]->execute( renderArgs );
         }
     }
 

@@ -21,9 +21,12 @@
 
 namespace ngen {
     DisplayPort::DisplayPort()
-            : m_isEnabled(true) {
+    : m_isEnabled(true)
+    {
         m_cameraArgs.type = ngen::kCamera_Invalid;
         m_cameraArgs.fov = 75.0f;
+        m_cameraArgs.zNear = 0.1;
+        m_cameraArgs.zFar = 200.0f;
     }
 
     DisplayPort::~DisplayPort() {
@@ -51,7 +54,7 @@ namespace ngen {
     //! \brief  Retreives teh current camera arguments assigned to this display port.
     //! \param  cameraArgs [out] -
     //!         Structure that will receive the properties describing the camera attached tot the display port.
-    void DisplayPort::getCameraArgs(ngen::CameraArgs &cameraArgs) {
+    void DisplayPort::getCameraArgs(CameraArgs &cameraArgs) {
         cameraArgs = m_cameraArgs;
     }
 
@@ -59,10 +62,36 @@ namespace ngen {
     //! \brief  Called by the framework when it is time for our display port to perform its rendering.
     void DisplayPort::onRender() {
         if (m_isEnabled && ngen::kCamera_Invalid != m_cameraArgs.type) {
-            // TODO: Calculate projection transform for camera
-            // TODO: Calculate view transform for camera
+            prepareRenderArgs( m_cameraArgs, 1.0f );    // TODO: Supply appropriate aspect ratio
 
-            m_pipeline.execute();
+            m_pipeline.execute( m_renderArgs );
         }
+    }
+
+
+    //! \brief  Fills the RenderArgs structure with information appropriate for the rendered display.
+    //! \param  cameraArgs [in] -
+    //!         Description of the camera whose view is being rendered.
+    //! \param  aspectRatio [in] -
+    //!         Aspect ratio of the display.
+    void DisplayPort::prepareRenderArgs( const CameraArgs &cameraArgs, float aspectRatio ) {
+        m_renderArgs.cameraPos = cameraArgs.position;
+        m_renderArgs.invViewTransform = Vectormath::Aos::Matrix4( cameraArgs.orientation, cameraArgs.position );
+        m_renderArgs.viewTransform = Vectormath::Aos::inverse( m_renderArgs.invViewTransform );
+
+        switch ( cameraArgs.type ) {
+            case kCamera_Perspective:
+                m_renderArgs.projection.perspective( cameraArgs.fov, aspectRatio, cameraArgs.zNear, cameraArgs.zFar );
+                break;
+
+            case kCamera_Orthographic:
+                // TODO:
+                break;
+
+            case kCamera_Invalid:
+                break;
+        }
+
+        m_renderArgs.viewProjection = m_renderArgs.viewTransform * m_renderArgs.projection;
     }
 }
