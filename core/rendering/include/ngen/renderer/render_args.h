@@ -14,8 +14,13 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_RENDER_ARGS_H_H
-#define NGEN_RENDER_ARGS_H_H
+#ifndef NGEN_RENDER_ARGS_H
+#define NGEN_RENDER_ARGS_H
+
+
+////////////////////////////////////////////////////////////////////////////
+
+#include <vectormath_aos.h>
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -23,15 +28,15 @@
 namespace ngen {
     //! \brief  Parameters for the current frame being rendered.
     struct RenderArgs {
-        //float     m_timer;
-        //Vector3   m_viewPosition;
-        //Vector3   m_viewDirection;
-        //Matrix    m_viewTransform;
-        //Matrix    m_projection;
+        Vectormath::Aos::Vector3    cameraPos;          // Position of camera in world space
+        Vectormath::Aos::Matrix4    viewTransform;      // World to view transform
+        Vectormath::Aos::Matrix4    invViewTransform;   // View to world transform
+        Vectormath::Aos::Matrix4    projection;         // Projection transform for the pipeline
+        Vectormath::Aos::Matrix4    viewProjection;     // Concatenated view and projection transform
     };
 }
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif //NGEN_RENDER_ARGS_H_H
+#endif //NGEN_RENDER_ARGS_H

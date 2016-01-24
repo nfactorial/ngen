@@ -15,7 +15,7 @@
 //
 
 #include "render_layer.h"
-#include "render_args.h"
+#include <ngen/renderer/render_args.h>
 
 
 namespace ngen {
