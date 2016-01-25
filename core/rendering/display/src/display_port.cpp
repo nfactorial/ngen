@@ -21,7 +21,8 @@
 
 namespace ngen {
     DisplayPort::DisplayPort()
-    : m_isEnabled(true)
+    : m_requestProvider( nullptr )
+    , m_isEnabled(true)
     {
         m_cameraArgs.type = ngen::kCamera_Invalid;
         m_cameraArgs.fov = 75.0f;

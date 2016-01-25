@@ -33,7 +33,7 @@ namespace ngen {
 
     RequestProvider::~RequestProvider()
     {
-        assert( nullptr == m_requests );
+        dispose();
     }
 
 
