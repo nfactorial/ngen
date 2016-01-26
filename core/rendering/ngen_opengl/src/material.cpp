@@ -32,6 +32,23 @@ namespace ngen {
         //
     }
 
+
+    //! \brief  Called once rendering for this material has completed.
+    //! \param  renderArgs [in] -
+    //!         Miscellaneous variables associated with the view being rendered.
+    void Material::onBeginRendering( const RenderArgs &renderArgs ) {
+        // TODO: Prepare material for use by OpenGL
+    }
+
+
+    //! \brief  Called once rendering for this material has completed.
+    //! \param  renderArgs [in] -
+    //!         Miscellaneous variables associated with the view being rendered.
+    void Material::onEndRendering( const RenderArgs &renderArgs ) {
+        // TODO: Perform any cleanup necessary for the material
+    }
+
+
     //! \brief  Renders a list of draw requests using the current material.
     //! \param  renderArgs [in] -
     //!         Miscellaneous variables associated with the view being rendered.
@@ -39,7 +56,7 @@ namespace ngen {
     //!         Pointer to list of draw requests that are to be rendered.
     //! \param  requestCount [in] -
     //!         Number of requests in the supplied list.
-    void Material::execute( const RenderArgs &renderArgs, const DrawRequest *requests, size_t requestCount ) {
+    void Material::execute( const RenderArgs &renderArgs, const GeometryRequest *requests, size_t requestCount ) {
         assert( nullptr != requests );
 
         // NOTE: The request list may be a linked-list instead of an array in the future.
@@ -53,7 +70,7 @@ namespace ngen {
     //!         Miscellaneous variables associated with the view being rendered.
     //! \param  drawRequest [in] -
     //!         The DrawRequest instance to be rendered.
-    void Material::executeRequest( const RenderArgs &renderArgs, const DrawRequest &drawRequest ) {
+    void Material::executeRequest( const RenderArgs &renderArgs, const GeometryRequest &drawRequest ) {
         // TODO: Perform rendering
     }
 }

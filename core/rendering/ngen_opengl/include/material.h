@@ -27,7 +27,7 @@
 
 namespace ngen {
     struct RenderArgs;
-    struct DrawRequest;
+    struct GeometryRequest;
 
     class Material {
     public:
@@ -37,7 +37,10 @@ namespace ngen {
         int getLayerId() const;
         bool isShadowAvailable() const;
 
-        void execute( const RenderArgs &renderArgs, const DrawRequest *requests, size_t requestCount );
+        void execute( const RenderArgs &renderArgs, const GeometryRequest *requests, size_t requestCount );
+
+        void onEndRendering( const RenderArgs &renderArgs );
+        void onBeginRendering( const RenderArgs &renderArgs );
 
     private:
         void executeRequest( const RenderArgs &renderArgs, const DrawRequest &drawRequest );

@@ -17,6 +17,7 @@
 #include <ngen/renderer/draw_request.h>
 #include <ngen/renderer/render_args.h>
 #include <request_page.h>
+#include <material.h>
 
 #include "material_request.h"
 #include "request_provider.h"
@@ -82,17 +83,17 @@ namespace ngen {
 
     //! \brief  Performs all queued render requests by sending them to the associated material.
     //! \param  renderArgs [in] -
-    //!
+    //!         Miscellaneous variables associated with the view being rendered.
     void MaterialRequest::execute( const RenderArgs &renderArgs ) {
         assert( nullptr != m_material );
 
-        //m_material->onBeginRendering( renderArgs );
+        m_material->onBeginRendering( renderArgs );
 
         // TODO: Iterate each page and send its content to the material
         for ( RequestPage *page = m_requestPage; nullptr != page; page = page->nextPage ) {
-            //m_material->execute( renderArgs, &page->requests[ 0 ], page->items );
+            m_material->execute( renderArgs, &page->requests[ 0 ], page->items );
         }
 
-        //m_material->onEndRendering( renderArgs );
+        m_material->onEndRendering( renderArgs );
     }
 }
