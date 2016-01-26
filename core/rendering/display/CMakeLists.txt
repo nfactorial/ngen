@@ -5,7 +5,6 @@ project(ngenDisplay)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 include_directories(include)
-include_directories(${ngen_rendering_SOURCE_DIR}/include)
 include_directories(${ngenExternal_SOURCE_DIR}/sce_vectormath/include/vectormath/SSE/cpp) # TODO: Simplify this
 include_directories(${GSL_SOURCE_DIR}/include)
 

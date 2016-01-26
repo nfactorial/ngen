@@ -90,7 +90,7 @@ namespace ngen {
 
         // TODO: Iterate each page and send its content to the material
         for ( RequestPage *page = m_requestPage; nullptr != page; page = page->nextPage ) {
-            //m_material->execute( &page->requests[ 0 ], page->items );
+            //m_material->execute( renderArgs, &page->requests[ 0 ], page->items );
         }
 
         //m_material->onEndRendering( renderArgs );
