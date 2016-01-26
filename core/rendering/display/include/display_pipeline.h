@@ -30,12 +30,15 @@ namespace ngen {
     struct RenderArgs;
 
     class RenderLayer;
+    class RequestProvider;
 
     //! \brief  Manages a rendering pipeline for a single display port.
     class DisplayPipeline {
     public:
         DisplayPipeline();
         ~DisplayPipeline();
+
+        bool initialize( RequestProvider *requestProvider, size_t layerCount );
 
         void execute( const RenderArgs &renderArgs );
 
@@ -45,7 +48,7 @@ namespace ngen {
 
     private:
         size_t m_layerCount;
-        RenderLayer **m_layerList;
+        RenderLayer *m_layerList;
     };
 }
 

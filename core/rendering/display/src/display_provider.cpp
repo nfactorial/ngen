@@ -25,7 +25,7 @@ namespace ngen {
     }
 
     DisplayProvider::~DisplayProvider() {
-        //
+        assert( 0 == m_displayPortCount );
     }
 
 

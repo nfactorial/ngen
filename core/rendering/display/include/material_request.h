@@ -26,15 +26,65 @@
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
+    struct RenderArgs;
+    struct RequestPage;
+
     class Material;
+    class RequestProvider;
 
     //! \brief  This structure is used to manage a list of draw requests made for a specific material.
-    struct MaterialRequest {
-        int             materialId;         //!< Identifier of the material in this list
-        size_t          requestCount;       //!< Number of draw requests for this material
-        Material        *material;          //!< Material associated with this request
-        MaterialRequest *nextMaterial;      //!< Next material in this layer
+    class MaterialRequest {
+    public:
+        MaterialRequest();
+        ~MaterialRequest();
+
+        bool initialisze( RequestProvider *owner, Material *material );
+
+        bool add( const DrawRequest &drawRequest );
+
+        void execute( const RenderArgs &renderArgs );
+
+        MaterialRequest* next() const;
+        void link( MaterialRequest *next );
+
+        size_t getRequests() const;         //!< Retrieves the total number of contained draw requests
+
+        size_t getId() const;               //!< Retrieves the identifier of the material represented by this object
+        Material* getMaterial() const;
+
+    private:
+        size_t          m_materialId;         //!< Identifier of the material in this list
+        size_t          m_requestCount;       //!< Number of draw requests for this material
+        Material        *m_material;          //!< Material associated with this request
+        MaterialRequest *m_nextMaterial;      //!< Next material in this layer
+        RequestPage     *m_requestPage;
+        RequestProvider *m_requestProvider;   //!< Request provider we are associated with
     };
+
+
+    //! \brief  Retrieves the identifier of the material currently associated with this object.
+    //! \return The identifier of the material currently associated with this object.
+    inline size_t MaterialRequest::getId() const {
+        return m_materialId;
+    }
+
+
+    //! \brief  Retrieves the total number of requests contained within this object.
+    //! \return The total number of requests contained within this object.
+    inline size_t MaterialRequest::getRequests() const {
+        return m_requestCount;
+    }
+
+
+    //! \brief  Retrieves the material currently associated with this object.
+    //! \return The material currently associated with this object.
+    inline Material* MaterialRequest::getMaterial() const {
+        return m_material;
+    }
+
+    inline MaterialRequest* MaterialRequest::next() const {
+        return m_nextMaterial;
+    }
 }
 
 

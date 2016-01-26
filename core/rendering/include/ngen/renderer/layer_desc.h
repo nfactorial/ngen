@@ -14,11 +14,27 @@
 // limitations under the License.
 //
 
-//
-// Created by Wayne Coles on 25/01/2016.
-//
-
 #ifndef NGEN_LAYER_DESC_H
 #define NGEN_LAYER_DESC_H
+
+
+////////////////////////////////////////////////////////////////////////////
+
+namespace ngen {
+    struct GeneratorDesc {
+        const char *name;
+    };
+
+
+    //! \brief  Describes a single render layer within a render pipeline.
+    struct LayerDesc {
+        const char *name;
+        size_t generatorCount;
+        GeneratorDesc *generators;
+    };
+}
+
+
+////////////////////////////////////////////////////////////////////////////
 
 #endif //NGEN_LAYER_DESC_H

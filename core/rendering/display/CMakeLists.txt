@@ -7,10 +7,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 include_directories(include)
 include_directories(${ngen_rendering_SOURCE_DIR}/include)
 include_directories(${ngenExternal_SOURCE_DIR}/sce_vectormath/include/vectormath/SSE/cpp) # TODO: Simplify this
+include_directories(${GSL_SOURCE_DIR}/include)
 
 set(SOURCE_FILES
         src/display_port.cpp
         src/render_layer.cpp
+        src/material_request.cpp
         src/request_provider.cpp
         src/display_pipeline.cpp
         src/display_provider.cpp)

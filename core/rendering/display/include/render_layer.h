@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include <cstddef>
-#include "material_request.h"
+#include <array>
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -35,12 +35,18 @@ namespace ngen {
     struct RenderArgs;
     struct DrawRequest;
 
+    class MaterialRequest;
+    class RequestProvider;
 
     //! \brief Manages a layer within the rendering pipeline.
     class RenderLayer {
+        typedef std::array< MaterialRequest, NGEN_MAXIMUM_MATERIAL_REQUESTS >   MaterialRequestList;
+
     public:
         RenderLayer();
         ~RenderLayer();
+
+        bool initialize( RequestProvider *requestProvider );
 
         void flush();
 
@@ -52,11 +58,14 @@ namespace ngen {
 
         bool addRequest( const DrawRequest &drawRequest );
 
+        MaterialRequest* findRequest( Material *material ) const;
+
     private:
         size_t m_id;
-
         size_t m_requestCount;
-        MaterialRequest m_materialRequests[NGEN_MAXIMUM_MATERIAL_REQUESTS];
+
+        MaterialRequest *m_requestList;
+        RequestProvider *m_requestProvider;
     };
 
 

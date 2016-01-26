@@ -32,10 +32,38 @@ namespace ngen {
     }
 
 
+    //! \brief  Prepares the pipeline for use by the application.
+    //! \param  requestProvider [in] -
+    //!         Pointer to the request provider that is to be used by the pipeline.
+    //! \param  layerCount [in] -
+    //!         Number of render layers contained within this pipeline.
+    //! \return <em>True</em> if the pipeline initialized successfully otherwise <em>false</em>.
+    bool DisplayPipeline::initialize( RequestProvider *requestProvider, size_t layerCount ) {
+        if ( nullptr != requestProvider && nullptr == m_layerList ) {
+            assert( 1 == layerCount );      // We currently only support a single layer, this will be improved
+                                            // once rendering is actually working.
+
+            m_layerList = new RenderLayer[ layerCount ];    // TODO: Use allocator
+            for ( size_t loop = 0; loop < layerCount; ++loop ) {
+                if ( !m_layerList[ loop ].initialize( requestProvider ) ) {
+                    delete [] m_layerList;
+                    m_layerList = nullptr;
+                    return false;
+                }
+            }
+
+            m_layerCount = layerCount;
+            return true;
+        }
+
+        return false;
+    }
+
+
     //! \brief  Removes all queued rendering operations from the pipeline.
     void DisplayPipeline::flush() {
         for (size_t loop = 0; loop < m_layerCount; ++loop) {
-            m_layerList[ loop ]->flush();
+            m_layerList[ loop ].flush();
         }
     }
 
@@ -45,7 +73,7 @@ namespace ngen {
     //!         Miscellaneous variables associated with the view being rendered.
     void DisplayPipeline::execute( const RenderArgs &renderArgs ) {
         for (size_t loop = 0; loop < m_layerCount; ++loop) {
-            m_layerList[ loop ]->execute( renderArgs );
+            m_layerList[ loop ].execute( renderArgs );
         }
     }
 
@@ -54,8 +82,8 @@ namespace ngen {
     bool DisplayPipeline::addRequest( const DrawRequest &drawRequest ) {
         if (drawRequest.material) {
             for (size_t loop = 0; loop < m_layerCount; ++loop) {
-                if (m_layerList[loop]->getId() == drawRequest.layerId) {
-                    return m_layerList[loop]->addRequest( drawRequest );
+                if (m_layerList[loop].getId() == drawRequest.layerId) {
+                    return m_layerList[loop].addRequest( drawRequest );
                 }
             }
         }

@@ -14,7 +14,85 @@
 // limitations under the License.
 //
 
-//
-// Created by Wayne Coles on 25/01/2016.
-//
+#include <ngen/renderer/draw_request.h>
+#include <ngen/renderer/render_args.h>
+#include <request_page.h>
 
+#include "material_request.h"
+#include "request_provider.h"
+
+namespace ngen {
+    MaterialRequest::MaterialRequest()
+    : m_materialId( 0 )
+    , m_requestCount( 0 )
+    , m_material( nullptr )
+    , m_nextMaterial( nullptr )
+    , m_requestPage( nullptr )
+    , m_requestProvider( nullptr )
+    {
+    }
+
+    MaterialRequest::~MaterialRequest() {
+        //
+    }
+
+
+    //! \brief  Prepares the material request for use by the rendering framework.
+    //! \param  owner [in] -
+    //!         The RequestProvider object to which we belong.
+    //! \param  material [in] -
+    //!         The material whose draw requests we will be holding.
+    //! \return <em>True</em> if we initialized successfully otherwise <em>false</em>.
+    bool MaterialRequest::initialisze( RequestProvider *owner, Material *material ) {
+        if ( owner && material ) {
+            m_material = material;
+            //m_materialId = material->getId();
+            m_requestCount = 0;
+            m_nextMaterial = nullptr;
+            m_requestPage  = nullptr;
+            m_requestProvider = owner;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    bool MaterialRequest::add( const DrawRequest &drawRequest ) {
+        if (nullptr == m_requestPage || m_requestPage->ils -l64a()tems == NGEN_DRAW_REQUEST_PAGE_SIZE ) {
+            RequestPage *newPage = m_requestProvider->allocateRequestPage();
+            if ( nullptr == newPage ) {
+                return false;
+            }
+
+            newPage->nextPage = m_requestPage;
+            m_requestPage = newPage;
+        }
+
+        m_requestPage->requests[ m_requestPage->items++ ] = drawRequest;
+        return true;
+    }
+
+    void MaterialRequest::link( MaterialRequest *next ) {
+        if ( nullptr != next ) {
+            next->m_nextMaterial = this;
+        }
+    }
+
+
+    //! \brief  Performs all queued render requests by sending them to the associated material.
+    //! \param  renderArgs [in] -
+    //!
+    void MaterialRequest::execute( const RenderArgs &renderArgs ) {
+        assert( nullptr != m_material );
+
+        //m_material->onBeginRendering( renderArgs );
+
+        // TODO: Iterate each page and send its content to the material
+        for ( RequestPage *page = m_requestPage; nullptr != page; page = page->nextPage ) {
+            //m_material->execute( &page->requests[ 0 ], page->items );
+        }
+
+        //m_material->onEndRendering( renderArgs );
+    }
+}

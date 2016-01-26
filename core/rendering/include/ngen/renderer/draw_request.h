@@ -29,13 +29,16 @@ namespace ngen {
     class Geometry;
     class Material;
 
-    //! \brief  A draw request represents a block of geometry to be rendered by the framework.
-    struct DrawRequest {
-        int layerId;
+    struct GeometryRequest {
         Geometry *geometry;
-        Material *material;
         Vectormath::Aos::Vector3    position;
         Vectormath::Aos::Matrix3    orientation;
+    };
+
+    //! \brief  A draw request represents a block of geometry to be rendered by the framework.
+    struct DrawRequest : public GeometryRequest {
+        int layerId;            // TODO: obtain from material?
+        Material *material;
     };
 }
 

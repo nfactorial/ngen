@@ -21,6 +21,12 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include <cstddef>
+#include <vector>
+#include <array>
+#include <ngen/renderer/draw_request.h>
+
+#include "material_request.h"
+#include "request_page.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -48,35 +54,55 @@ namespace ngen {
         RequestProvider();
         ~RequestProvider();
 
-        bool initialize( size_t maximumRequests );
+        bool initialize( size_t materialRequests, size_t pages );
 
         void dispose();
 
         void reset();
 
-        MaterialRequest* createMaterialRequest( Material *material );
+        MaterialRequest* allocateMaterialRequest( Material *material );
+        RequestPage* allocateRequestPage();
 
-        size_t getCapacity() const;
-        size_t getAllocations() const;
+        size_t getMaterialCapacity() const;
+        size_t getMaterialAllocations() const;
+
+        size_t getPageCount() const;
+        size_t getPageCapacity() const;
 
     private:
-        size_t m_capacity;
-        size_t m_allocations;
-        MaterialRequest *m_requests;
+        size_t m_pageCapacity;
+        size_t m_pagesAllocated;
+
+        std::vector< MaterialRequest > m_requests;
+        std::vector< RequestPage > m_requestPages;
     };
+
+
+    //! \brief  Retrieves the maximum number of request pages the provider can supply.
+    //! \return The maximum number of request pages that may be supplied by the provider.
+    inline size_t RequestProvider::getPageCapacity() const {
+        return m_requestPages.capacity();
+    }
+
+
+    //! \brief  Retrieves the current number of request pages allocated by the provider.
+    //! \return The current number of request pages allocated by the provider.
+    inline size_t RequestProvider::getPageCount() const {
+        return m_requestPages.size();
+    }
 
 
     //! \brief  Retrieves the maximum number of requests the provider can supply.
     //! \return The maximum number of requests that may be supplied by the provider.
-    inline size_t RequestProvider::getCapacity() const {
-        return m_capacity;
+    inline size_t RequestProvider::getMaterialCapacity() const {
+        return m_requests.capacity();
     }
 
 
     //! \brief  Retrieves the current number of requests allocated by the provider.
     //! \return The current number of requests allocated by the provider.
-    inline size_t RequestProvider::getAllocations() const {
-        return m_allocations;
+    inline size_t RequestProvider::getMaterialAllocations() const {
+        return m_requests.size();
     }
 }
 
