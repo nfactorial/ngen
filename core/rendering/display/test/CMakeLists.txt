@@ -8,5 +8,9 @@ add_executable(display_tests
         test_request_provider.cpp
         test_display_provider.cpp)
 
+if (NGEN_BUILD_OPENGL)
+    target_link_libraries(display_tests ngen_opengl)
+endif()
+
 target_link_libraries(display_tests gtest gtest_main)
 target_link_libraries(display_tests ngen_display)

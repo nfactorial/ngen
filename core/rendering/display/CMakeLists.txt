@@ -35,10 +35,8 @@ set(INCLUDE_FILES
         include/display_pipeline.h
         include/material_request.h
         include/request_provider.h
-        include/request_queue.h
         include/render_layer.h
         include/request_page.h
-        include/camera_type.h
         include/camera_args.h
         include/display_provider.h)
 

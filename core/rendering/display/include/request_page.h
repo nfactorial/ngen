@@ -25,16 +25,13 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-#define NGEN_DRAW_REQUEST_PAGE_SIZE     64
-
-
-////////////////////////////////////////////////////////////////////////////
-
 namespace ngen {
+    const size_t kNgenRequestPageCapacity     = 64;
+
     struct RequestPage {
         RequestPage *nextPage;
         size_t items;
-        std::array< GeometryRequest, NGEN_DRAW_REQUEST_PAGE_SIZE > requests;
+        std::array< GeometryRequest, kNgenRequestPageCapacity > requests;
     };
 }
 

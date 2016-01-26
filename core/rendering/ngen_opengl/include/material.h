@@ -43,7 +43,7 @@ namespace ngen {
         void onBeginRendering( const RenderArgs &renderArgs );
 
     private:
-        void executeRequest( const RenderArgs &renderArgs, const DrawRequest &drawRequest );
+        void executeRequest( const RenderArgs &renderArgs, const GeometryRequest &drawRequest );
 
     private:
         int m_layerId;

@@ -60,7 +60,7 @@ namespace ngen {
     }
 
     bool MaterialRequest::add( const DrawRequest &drawRequest ) {
-        if (nullptr == m_requestPage || m_requestPage->items == NGEN_DRAW_REQUEST_PAGE_SIZE ) {
+        if (nullptr == m_requestPage || m_requestPage->items == kNgenRequestPageCapacity ) {
             RequestPage *newPage = m_requestProvider->allocateRequestPage();
             if ( nullptr == newPage ) {
                 return false;
@@ -89,8 +89,8 @@ namespace ngen {
 
         m_material->onBeginRendering( renderArgs );
 
-        // TODO: Iterate each page and send its content to the material
         for ( RequestPage *page = m_requestPage; nullptr != page; page = page->nextPage ) {
+            // TODO: Should probably supply an array_view instead.
             m_material->execute( renderArgs, &page->requests[ 0 ], page->items );
         }
 
