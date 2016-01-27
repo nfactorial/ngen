@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.3)
 
 project(ngenApplication)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${NGEN_STD}")
 set(NGEN_APPLICATION_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 
 find_package(SDL2 REQUIRED)

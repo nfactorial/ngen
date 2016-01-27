@@ -38,7 +38,7 @@ namespace ngen {
         MaterialRequest();
         ~MaterialRequest();
 
-        bool initialisze( RequestProvider *owner, Material *material );
+        bool initialize( RequestProvider *owner, Material *material );
 
         bool add( const DrawRequest &drawRequest );
 

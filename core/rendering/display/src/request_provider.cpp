@@ -15,6 +15,7 @@
 //
 
 #include <cassert>
+#include <memory>
 
 #include "request_provider.h"
 #include "material_request.h"
@@ -23,7 +24,12 @@
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
-    RequestProvider::RequestProvider() {
+    RequestProvider::RequestProvider()
+    : m_pageCapacity( 0 )
+    , m_pagesAllocated( 0 )
+    , m_materialCapacity( 0 )
+    , m_materialsAllocated( 0 )
+    {
     }
 
     RequestProvider::~RequestProvider() {
@@ -37,9 +43,12 @@ namespace ngen {
     //!         Number of draw request pages available for use by the application.
     //! \return <em>True</em> if the provider initialized successfully otherwise <em>false</em>.
     bool RequestProvider::initialize( size_t materialRequests, size_t pages ) {
-        if ( m_requests.empty() && m_requestPages.empty() && materialRequests > 0 && pages > 0 ) {
-            m_requests.reserve( materialRequests );
-            m_requestPages.reserve( pages );
+        if ( 0 == m_materialsAllocated && 0 == m_pagesAllocated ) {
+            m_requestList = std::make_unique< MaterialRequest[] >( materialRequests );
+            m_pageList = std::make_unique< RequestPage[] >( pages );
+
+            m_materialCapacity = materialRequests;
+            m_pageCapacity = pages;
 
             return true;
         }
@@ -49,15 +58,20 @@ namespace ngen {
 
     //! \brief  Releases all memory and resources currently in use by the object.
     void RequestProvider::dispose() {
-        m_requests.clear();
-        m_requestPages.clear();
+        m_requestList.reset();
+        m_pageList.reset();
+
+        m_pageCapacity = 0;
+        m_pagesAllocated = 0;
+        m_materialCapacity = 0;
+        m_materialsAllocated = 0;
     }
 
 
     //! \brief  Resets the provider as though there are 0 allocations.
     void RequestProvider::reset() {
-        m_requests.clear();
-        m_requestPages.clear();
+        m_pagesAllocated = 0;
+        m_materialsAllocated = 0;
     }
 
 
@@ -66,11 +80,9 @@ namespace ngen {
     //!         The material which will be represented by the allocation.
     //! \return Pointer to the newly allocated request object, if the request could not be allocated this method returns <em>nullptr</em>.
     MaterialRequest* RequestProvider::allocateMaterialRequest( Material *material ) {
-        if ( material && m_requests.size() < m_requests.capacity() ) {
-            MaterialRequest request;
-            if ( request.initialisze( this, material ) ) {
-                m_requests.push_back( request );
-                return &m_requests.back();
+        if ( material && m_materialsAllocated < m_materialCapacity ) {
+            if ( m_requestList[ m_materialsAllocated ].initialize( this, material ) ) {
+                return &m_requestList[ m_materialsAllocated++ ];
             }
         }
 
@@ -78,17 +90,13 @@ namespace ngen {
     }
 
     RequestPage* RequestProvider::allocateRequestPage() {
-        if ( m_requestPages.size() < m_requestPages.capacity() ) {
-            RequestPage newPage;
+        if ( m_pagesAllocated < m_pageCapacity ) {
+            RequestPage *newPage = &m_pageList[ m_pagesAllocated++ ];
 
-            newPage.nextPage = nullptr;
-            newPage.items = 0;
+            newPage->nextPage = nullptr;
+            newPage->items = 0;
 
-            // TODO: Don't really want to push an item into the page vector. Will re-structure this soon.
-            // TODO: Prefer to use an array_view.
-
-            m_requestPages.push_back( newPage );
-            return &m_requestPages.back();
+            return newPage;
         }
 
         return nullptr;

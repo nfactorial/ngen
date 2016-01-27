@@ -4,6 +4,7 @@ set(CMAKE_OSX_ARCHITECTURES x86_64)
 #set(CMAKE_OSX_ARCHITECTURES i386)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(NGEN_STD "-std=c++1y")
 
 option(ngen_build_tests "Build unit tests." ON)
 option(NGEN_BUILD_OPENGL "Build OpenGL renderer." ON)

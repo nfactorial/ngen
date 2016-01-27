@@ -44,7 +44,7 @@ namespace ngen {
     //! \param  material [in] -
     //!         The material whose draw requests we will be holding.
     //! \return <em>True</em> if we initialized successfully otherwise <em>false</em>.
-    bool MaterialRequest::initialisze( RequestProvider *owner, Material *material ) {
+    bool MaterialRequest::initialize( RequestProvider *owner, Material *material ) {
         if ( owner && material ) {
             m_material = material;
             //m_materialId = material->getId();

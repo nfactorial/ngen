@@ -49,6 +49,11 @@ namespace ngen {
     //! The rendering process is not currently multi-threaded however it is possible it will be extended in the
     //! future to support multiple threads. For now, the framework uses only a single request provider that
     //! is shared across all display ports.
+    //!
+    //! NOTE: We do not use std::vector to manage our lists as we desire different behaviour, we do not want
+    //!       the ctor/dtor members invoked during allocation/release. As, for example, the request pages contain
+    //!       much more data than we wish to initialize or copy (via push_back etc.). Instead we're using raw
+    //!       arrays managed by a unique_ptr. We will take advantage of array_view constructs in the near future.
     class RequestProvider {
     public:
         RequestProvider();
@@ -73,36 +78,39 @@ namespace ngen {
         size_t m_pageCapacity;
         size_t m_pagesAllocated;
 
-        std::vector< MaterialRequest > m_requests;
-        std::vector< RequestPage > m_requestPages;
+        size_t m_materialCapacity;
+        size_t m_materialsAllocated;
+
+        std::unique_ptr< MaterialRequest[] > m_requestList;
+        std::unique_ptr< RequestPage[] > m_pageList;
     };
 
 
     //! \brief  Retrieves the maximum number of request pages the provider can supply.
     //! \return The maximum number of request pages that may be supplied by the provider.
     inline size_t RequestProvider::getPageCapacity() const {
-        return m_requestPages.capacity();
+        return m_pageCapacity;
     }
 
 
     //! \brief  Retrieves the current number of request pages allocated by the provider.
     //! \return The current number of request pages allocated by the provider.
     inline size_t RequestProvider::getPageCount() const {
-        return m_requestPages.size();
+        return m_pagesAllocated;
     }
 
 
     //! \brief  Retrieves the maximum number of requests the provider can supply.
     //! \return The maximum number of requests that may be supplied by the provider.
     inline size_t RequestProvider::getMaterialCapacity() const {
-        return m_requests.capacity();
+        return m_materialCapacity;
     }
 
 
     //! \brief  Retrieves the current number of requests allocated by the provider.
     //! \return The current number of requests allocated by the provider.
     inline size_t RequestProvider::getMaterialAllocations() const {
-        return m_requests.size();
+        return m_materialsAllocated;
     }
 }
 
