@@ -21,6 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include <cstddef>
+#include <memory>
 #include <ngen/renderer/draw_request.h>
 
 
@@ -48,7 +49,7 @@ namespace ngen {
 
     private:
         size_t m_layerCount;
-        RenderLayer *m_layerList;
+        std::unique_ptr< RenderLayer[] > m_layerList;
     };
 }
 

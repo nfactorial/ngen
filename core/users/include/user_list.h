@@ -21,6 +21,7 @@
 /////////////////////////////////////////////////////////////////
 
 #include <cstddef>
+#include <array>
 
 #include "user_info.h"
 #include "user.h"
@@ -28,36 +29,36 @@
 
 /////////////////////////////////////////////////////////////////
 
-#define NGEN_USER_LIST_MAXIMUM_USERS         32
+namespace ngen {
+    const size_t kUserCapacity = 32;
 
-
-/////////////////////////////////////////////////////////////////
 
 //! \brief  Maintains a collection of all users within the currently running session.
-class UserList
-{
-public:
-    UserList();
-    ~UserList();
+    class UserList {
+    public:
+        UserList();
 
-    size_t size() const;
+        ~UserList();
 
-    bool userExists( uint64_t publicKey );
+        size_t size() const;
 
-    bool addUser( uint64_t privateKey, uint64_t publicKey, const tempIp &ipAddress );
-    bool removeUser( uint64_t publicKey );
+        bool userExists(uint64_t publicKey);
 
-private:
-    size_t              m_count;            //!< Number of users in this list
-    UserInfo            m_users[ NGEN_USER_LIST_MAXIMUM_USERS ];
-};
+        bool addUser(uint64_t privateKey, uint64_t publicKey, const tempIp &ipAddress);
+
+        bool removeUser(uint64_t publicKey);
+
+    private:
+        size_t m_count;            //!< Number of users in this list
+        std::array<UserInfo, kUserCapacity> m_users;
+    };
 
 
-//! \brief  Retrieves the number of users in the list.
-//! \return The number of users in the list.
-inline size_t UserList::size() const
-{
-    return m_count;
+    //! \brief  Retrieves the number of users in the list.
+    //! \return The number of users in the list.
+    inline size_t UserList::size() const {
+        return m_count;
+    }
 }
 
 

@@ -26,11 +26,6 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-#define NGEN_MAXIMUM_DISPLAY_PORTS      16
-
-
-////////////////////////////////////////////////////////////////////////////
-
 namespace ngen {
     class DisplayPort;
 
@@ -47,11 +42,13 @@ namespace ngen {
 
         size_t getDisplayPortCount() const;
 
+        static const size_t kDisplayPortCapacity   = 16;
+
     private:
         RequestProvider m_requestProvider;
 
         size_t m_displayPortCount;
-        DisplayPort *m_displayPorts[NGEN_MAXIMUM_DISPLAY_PORTS];
+        std::array< DisplayPort*, kDisplayPortCapacity > m_displayPorts;
     };
 
 

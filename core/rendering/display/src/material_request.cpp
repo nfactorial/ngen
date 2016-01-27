@@ -60,7 +60,7 @@ namespace ngen {
     }
 
     bool MaterialRequest::add( const DrawRequest &drawRequest ) {
-        if (nullptr == m_requestPage || m_requestPage->items == kNgenRequestPageCapacity ) {
+        if (nullptr == m_requestPage || m_requestPage->items == RequestPage::kRequestPageCapacity ) {
             RequestPage *newPage = m_requestProvider->allocateRequestPage();
             if ( nullptr == newPage ) {
                 return false;

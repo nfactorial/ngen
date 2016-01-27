@@ -38,7 +38,7 @@ namespace ngen {
 
 
     bool DisplayProvider::deletePort( DisplayPort *port ) {
-        for ( size_t loop = 0; loop < NGEN_MAXIMUM_DISPLAY_PORTS; ++loop ) {
+        for ( size_t loop = 0; loop < m_displayPortCount; ++loop ) {
             if ( m_displayPorts[ loop ] == port ) {
                 delete m_displayPorts[ loop ];
 
@@ -56,7 +56,7 @@ namespace ngen {
     //!         Name of the rendering pipeline to be associated with the new display port.
     //! \return New DisplayPort instance, if the pipeline could not be found or the display port could not be created this method returns <em>nullptr</em>.
     DisplayPort* DisplayProvider::createDisplayPort(const char *pipeline) {
-        if ( m_displayPortCount < NGEN_MAXIMUM_DISPLAY_PORTS ) {
+        if ( m_displayPortCount < kDisplayPortCapacity ) {
             DisplayPort *displayPort = new DisplayPort();       // TODO: Use allocator
             if (displayPort->initialize(m_requestProvider)) {
                 m_displayPorts[m_displayPortCount++] = displayPort;

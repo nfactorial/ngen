@@ -22,7 +22,6 @@
 namespace ngen {
     DisplayPipeline::DisplayPipeline()
     : m_layerCount(0)
-    , m_layerList(nullptr)
     {
         //
     }
@@ -39,15 +38,14 @@ namespace ngen {
     //!         Number of render layers contained within this pipeline.
     //! \return <em>True</em> if the pipeline initialized successfully otherwise <em>false</em>.
     bool DisplayPipeline::initialize( RequestProvider *requestProvider, size_t layerCount ) {
-        if ( nullptr != requestProvider && nullptr == m_layerList ) {
+        if ( requestProvider && !m_layerList ) {
             assert( 1 == layerCount );      // We currently only support a single layer, this will be improved
                                             // once rendering is actually working.
 
-            m_layerList = new RenderLayer[ layerCount ];    // TODO: Use allocator
+            m_layerList = std::make_unique< RenderLayer[] >( layerCount );  // TODO: Use allocator
             for ( size_t loop = 0; loop < layerCount; ++loop ) {
                 if ( !m_layerList[ loop ].initialize( requestProvider ) ) {
-                    delete [] m_layerList;
-                    m_layerList = nullptr;
+                    m_layerList.reset();
                     return false;
                 }
             }

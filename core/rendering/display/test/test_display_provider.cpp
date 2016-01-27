@@ -32,9 +32,9 @@ TEST( DisplayProvider, CreatePort ) {
 
     const char *kPipelineName = "test_pipeline";
 
-    ngen::DisplayPort* ports[ NGEN_MAXIMUM_DISPLAY_PORTS ];
+    ngen::DisplayPort* ports[ ngen::DisplayProvider::kDisplayPortCapacity ];
 
-    for ( size_t loop = 0; loop < NGEN_MAXIMUM_DISPLAY_PORTS; ++loop ) {
+    for ( size_t loop = 0; loop < ngen::DisplayProvider::kDisplayPortCapacity; ++loop ) {
         ports[ loop ] = provider.createDisplayPort( kPipelineName );
         EXPECT_NE( nullptr, ports[ loop ] );
     }
@@ -43,7 +43,7 @@ TEST( DisplayProvider, CreatePort ) {
     EXPECT_EQ( nullptr, provider.createDisplayPort( kPipelineName ) );
 
     // Delete allocated display ports
-    for ( size_t loop = 0; loop < NGEN_MAXIMUM_DISPLAY_PORTS; ++loop ) {
+    for ( size_t loop = 0; loop < ngen::DisplayProvider::kDisplayPortCapacity; ++loop ) {
         EXPECT_TRUE( provider.deletePort( ports[ loop ] ) );
     }
 

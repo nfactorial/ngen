@@ -26,12 +26,12 @@
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
-    const size_t kNgenRequestPageCapacity     = 64;
-
     struct RequestPage {
+        static const size_t kRequestPageCapacity     = 64;
+
         RequestPage *nextPage;
         size_t items;
-        std::array< GeometryRequest, kNgenRequestPageCapacity > requests;
+        std::array< GeometryRequest, kRequestPageCapacity > requests;
     };
 }
 

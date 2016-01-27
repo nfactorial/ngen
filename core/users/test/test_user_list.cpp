@@ -24,7 +24,7 @@ const tempIp kTestIpAddress = { 4, 3, 2, 1 };
 
 //! \brief  Ensures an empty user list behaves as expected.
 TEST( UserList, EmptyConstruction ) {
-    UserList userList;
+    ngen::UserList userList;
 
     // Ensure list defaults to empty
     EXPECT_EQ( 0, userList.size() );
@@ -42,7 +42,7 @@ TEST( UserList, EmptyConstruction ) {
 
 //! \brief  Check that the user list allows us to add and remove a single user.  
 TEST( UserList, AddRemoveUser ) {
-    UserList userList;
+    ngen::UserList userList;
 
     // Ensure we successfully add a valid user
     EXPECT_TRUE( userList.addUser( kTestPrivateKey, kTestPublicKey, kTestIpAddress ) );
@@ -60,37 +60,37 @@ TEST( UserList, AddRemoveUser ) {
 
 //! \brief  Fill the container with users and verify it still behaves as expected.
 TEST( UserList, FillContainer ) {
-    UserList userList;
+    ngen::UserList userList;
 
     // Fill the collection
     // NOTE: It is valid for multiple users to have the same IP Address.
-    for ( size_t loop = 0; loop < NGEN_USER_LIST_MAXIMUM_USERS; ++loop )
+    for ( size_t loop = 0; loop < ngen::kUserCapacity; ++loop )
     {
         userList.addUser( kTestPrivateKey - loop, kTestPublicKey + loop, kTestIpAddress );
     }
-    EXPECT_EQ( NGEN_USER_LIST_MAXIMUM_USERS, userList.size() );
+    EXPECT_EQ(ngen::kUserCapacity, userList.size() );
 
     // Ensure we cannot add any more users
-    const uint64_t kTestOverflowPrivateKey = kTestPrivateKey - NGEN_USER_LIST_MAXIMUM_USERS;
-    const uint64_t kTestOverflowPublicKey = kTestPublicKey + NGEN_USER_LIST_MAXIMUM_USERS;
+    const uint64_t kTestOverflowPrivateKey = kTestPrivateKey - ngen::kUserCapacity;
+    const uint64_t kTestOverflowPublicKey = kTestPublicKey + ngen::kUserCapacity;
 
-    EXPECT_FALSE( userList.addUser( kTestPrivateKey - NGEN_USER_LIST_MAXIMUM_USERS, kTestPublicKey + NGEN_USER_LIST_MAXIMUM_USERS, kTestIpAddress ) );
+    EXPECT_FALSE( userList.addUser( kTestPrivateKey - ngen::kUserCapacity, kTestPublicKey + ngen::kUserCapacity, kTestIpAddress ) );
     //EXPECT_FALSE( userList.addUser( UserInfo::kInvalidUser ) );
 
-    for ( size_t loop = 0; loop < NGEN_USER_LIST_MAXIMUM_USERS; ++loop )
+    for ( size_t loop = 0; loop < ngen::kUserCapacity; ++loop )
     {
         EXPECT_TRUE( userList.userExists( kTestPublicKey + loop ) );
     }
 
     // Remove all users from the collection
-    for ( size_t loop = 0; loop < NGEN_USER_LIST_MAXIMUM_USERS; ++loop )
+    for ( size_t loop = 0; loop < ngen::kUserCapacity; ++loop )
     {
         EXPECT_TRUE( userList.removeUser( kTestPublicKey + loop ) );
     }
 
     EXPECT_EQ( 0, userList.size() );
 
-    for ( size_t loop = 0; loop < NGEN_USER_LIST_MAXIMUM_USERS; ++loop )
+    for ( size_t loop = 0; loop < ngen::kUserCapacity; ++loop )
     {
         EXPECT_FALSE( userList.userExists( kTestPublicKey + loop ) );
     }
