@@ -29,6 +29,8 @@
 namespace ngen {
     class DisplayPort;
 
+    const size_t kDisplayPortCapacity   = 16;
+
     //! \brief  Manages all renderable displays within the running title.
     class DisplayProvider {
     public:
@@ -41,8 +43,6 @@ namespace ngen {
         DisplayPort* createDisplayPort(const char *pipeline);
 
         size_t getDisplayPortCount() const;
-
-        static const size_t kDisplayPortCapacity   = 16;
 
     private:
         RequestProvider m_requestProvider;

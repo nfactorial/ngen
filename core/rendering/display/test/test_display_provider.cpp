@@ -32,20 +32,24 @@ TEST( DisplayProvider, CreatePort ) {
 
     const char *kPipelineName = "test_pipeline";
 
-    ngen::DisplayPort* ports[ ngen::DisplayProvider::kDisplayPortCapacity ];
+    std::array<ngen::DisplayPort *, ngen::kDisplayPortCapacity> ports;
 
-    for ( size_t loop = 0; loop < ngen::DisplayProvider::kDisplayPortCapacity; ++loop ) {
-        ports[ loop ] = provider.createDisplayPort( kPipelineName );
-        EXPECT_NE( nullptr, ports[ loop ] );
+    for (size_t loop = 0; loop < ngen::kDisplayPortCapacity; ++loop) {
+        ports[loop] = provider.createDisplayPort(kPipelineName);
+        EXPECT_NE(nullptr, ports[loop]);
     }
+
+    EXPECT_EQ(ngen::kDisplayPortCapacity, provider.getDisplayPortCount());
 
     // Next allocation should fail, as all the display ports have been allocated.
-    EXPECT_EQ( nullptr, provider.createDisplayPort( kPipelineName ) );
+    EXPECT_EQ(nullptr, provider.createDisplayPort(kPipelineName));
 
     // Delete allocated display ports
-    for ( size_t loop = 0; loop < ngen::DisplayProvider::kDisplayPortCapacity; ++loop ) {
-        EXPECT_TRUE( provider.deletePort( ports[ loop ] ) );
+    for (size_t loop = 0; loop < ngen::kDisplayPortCapacity; ++loop) {
+        EXPECT_TRUE(provider.deletePort(ports[loop]));
     }
 
-    EXPECT_FALSE( provider.deletePort( nullptr ) );
+    EXPECT_EQ(0, provider.getDisplayPortCount());
+
+    EXPECT_FALSE(provider.deletePort(nullptr));
 }

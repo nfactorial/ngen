@@ -17,6 +17,7 @@
 #include <ngen/renderer/draw_request.h>
 #include "render_layer.h"
 #include "gtest/gtest.h"
+#include "request_provider.h"
 
 TEST( RenderLayer, Construction ) {
     ngen::RenderLayer layer;
@@ -30,6 +31,12 @@ TEST( RenderLayer, Construction ) {
     EXPECT_FALSE( layer.addRequest( request ) );         // We cannot add a request to an uninitialized layer
 }
 
+TEST( RenderLayer, initialize ) {
+    ngen::RequestProvider provider;
+    ngen::RenderLayer layer;
+
+    EXPECT_FALSE( layer.initialize( &provider ) );
+}
 
 TEST( RenderLayer, Flush ) {
     ngen::RenderLayer layer;

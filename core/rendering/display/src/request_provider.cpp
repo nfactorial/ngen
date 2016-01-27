@@ -43,14 +43,16 @@ namespace ngen {
     //!         Number of draw request pages available for use by the application.
     //! \return <em>True</em> if the provider initialized successfully otherwise <em>false</em>.
     bool RequestProvider::initialize( size_t materialRequests, size_t pages ) {
-        if ( 0 == m_materialsAllocated && 0 == m_pagesAllocated ) {
-            m_requestList = std::make_unique< MaterialRequest[] >( materialRequests );
-            m_pageList = std::make_unique< RequestPage[] >( pages );
+        if ( materialRequests > 0 && pages > 0 ) {
+            if (0 == m_materialsAllocated && 0 == m_pagesAllocated) {
+                m_requestList = std::make_unique<MaterialRequest[]>(materialRequests);
+                m_pageList = std::make_unique<RequestPage[]>(pages);
 
-            m_materialCapacity = materialRequests;
-            m_pageCapacity = pages;
+                m_materialCapacity = materialRequests;
+                m_pageCapacity = pages;
 
-            return true;
+                return true;
+            }
         }
 
         return false;

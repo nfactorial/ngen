@@ -26,11 +26,6 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-#define NGEN_MAXIMUM_MATERIAL_REQUESTS      64
-
-
-////////////////////////////////////////////////////////////////////////////
-
 namespace ngen {
     struct RenderArgs;
     struct DrawRequest;
@@ -40,8 +35,6 @@ namespace ngen {
 
     //! \brief Manages a layer within the rendering pipeline.
     class RenderLayer {
-        typedef std::array< MaterialRequest, NGEN_MAXIMUM_MATERIAL_REQUESTS >   MaterialRequestList;
-
     public:
         RenderLayer();
         ~RenderLayer();
