@@ -11,6 +11,7 @@ before_install:
       && tar -xzf cmake-3.3.2-Linux-i386.tar.gz
       && sudo cp -fR cmake-3.3.2-Linux-i386/* /usr
       ;
+    fi
 
 before_script:
   - mkdir build 
