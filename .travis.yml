@@ -14,4 +14,4 @@ before_script:
 
 script:
   - cd build
-  - make tests
+  - make
