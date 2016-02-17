@@ -10,7 +10,8 @@ before_install:
 
 before_script:
   - mkdir build 
-  - cd build && cmake
+  - cd build
+  - cmake
 
 script:
   - make
