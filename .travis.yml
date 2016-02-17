@@ -6,9 +6,9 @@ compiler:
 
 before_install:
   - sudo apt-get update
-  - wget --no-check-certificate http://www.cmake.org/files/v3.3/cmake-3.3.2-Linux-i386.tar.gz
-  - tar -xzf cmake-3.3.2-Linux-i386.tar.gz
-  - sudo cp -fR cmake-3.3.2-Linux-i386/* /usr
+  - wget --no-check-certificate https://cmake.org/files/v3.5/cmake-3.5.0-rc2-Linux-i386.tar.gz
+  - tar -xzf cmake-3.5.0-rc2-Linux-i386.tar.gz
+  - sudo cp -fR cmake-3.5.0-rc2-Linux-i386/* /usr
 
 before_script:
   - mkdir build 
