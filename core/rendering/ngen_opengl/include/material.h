@@ -21,6 +21,8 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include <cstddef>
+#include <ngen/renderer/blend_mode.h>
+#include <ngen/renderer/blend_func.h>
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -48,6 +50,11 @@ namespace ngen {
     private:
         int m_layerId;
         bool m_shadowEnabled;
+
+        // TODO: Blend modes etc.
+        bool m_blendEnabled;
+        kBlendFunc m_blendFunc;
+        kBlendMode m_blendMode;
     };
 
 

@@ -20,8 +20,8 @@
 namespace ngen {
     GLProgram::GLProgram()
     : m_id( GL_INVALID_VALUE )
-    , m_pixelShader( GL_VERTEX_SHADER )
-    , m_vertexShader( GL_FRAGMENT_SHADER )
+    , m_vertexShader( GL_VERTEX_SHADER )
+    , m_pixelShader( GL_FRAGMENT_SHADER )
     {
         //
     }
@@ -32,25 +32,30 @@ namespace ngen {
 
 
     //! \brief  Creates the OpenGL program using the supplied settings.
+    //! \param  vertexShader [in] -
+    //!         Source code for the vertex shader belonging to the program.
+    //! \param  pixelShader [in] -
+    //!         Source code for the pixel shader belonging to the program.
     //! \return <em>True</em> if the program created successfully otherwise <em>false</em>.
-    bool GLProgram::initialize() {
+    bool GLProgram::initialize( const char *vertexShader, const char *pixelShader ) {
         if ( GL_INVALID_VALUE == m_id ) {
             m_id = glCreateProgram();
             if ( GL_INVALID_VALUE != m_id ) {
-                // QUERY: Should we create shaders locally like this, or obtain from a shared repository?
-                // TODO: Create vertex shader
-                // TODO: Create pixel shader
-                // TODO: Link program
-                glAttachShader( m_id, m_vertexShader.getId() );
-                glAttachShader( m_id, m_pixelShader.getId() );
+                if ( m_vertexShader.initialize( vertexShader ) && m_pixelShader.initialize( pixelShader ) ) {
+                    // Link program
+                    glAttachShader(m_id, m_vertexShader.getId());
+                    glAttachShader(m_id, m_pixelShader.getId());
 
-                glLinkProgram( m_id );
+                    glLinkProgram(m_id);
 
-                GLint success = GL_FALSE;
-                glGetProgramiv( m_id, GL_LINK_STATUS, &success );
-                if ( GL_TRUE == success ) {
-                    // TODO: Extract parameters
-                    return true;
+                    GLint success = GL_FALSE;
+                    glGetProgramiv(m_id, GL_LINK_STATUS, &success);
+                    if (GL_TRUE == success) {
+                        // TODO: Extract parameters
+                        return true;
+                    }
+
+                    // TODO: Log error message from OpenGL
                 }
 
                 dispose();

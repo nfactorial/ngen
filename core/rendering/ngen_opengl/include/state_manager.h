@@ -14,35 +14,37 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_PROGRAM_H
-#define NGEN_PROGRAM_H
+#ifndef NGEN_STATE_MANAGER_H
+#define NGEN_STATE_MANAGER_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <OpenGL/gl.h>
-#include "shader.h"
+#include <ngen/renderer/blend_mode.h>
+#include <ngen/renderer/blend_func.h>
+#include "state_value.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
-    class GLProgram {
+    class StateManager {
     public:
-        GLProgram();
-        ~GLProgram();
+        StateManager();
+        ~StateManager();
 
-        bool initialize( const char *vertexShader, const char *pixelShader );
-        void dispose();
+        void invalidate();
+
+        void setBlending( bool enabled, kBlendFunc blendFunc, kBlendMode blendMode );
 
     private:
-        GLuint      m_id;
-        GLShader    m_vertexShader;
-        GLShader    m_pixelShader;
+        StateValue< bool > m_blendEnabled;
+        StateValue< kBlendFunc > m_blendFunc;
+        StateValue< kBlendMode > m_blendMode;
     };
 }
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif //NGEN_PROGRAM_H
+#endif //NGEN_STATE_MANAGER_H

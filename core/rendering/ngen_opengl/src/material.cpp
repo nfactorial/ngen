@@ -23,6 +23,9 @@ namespace ngen {
     Material::Material()
     : m_layerId( -1 )
     , m_shadowEnabled( false )  // Query: Should material have this flag or the geometry?
+    , m_blendEnabled( false )
+    , m_blendFunc( kBlendFunc_Add )
+    , m_blendMode( kBlendMode_One )
     {
         //
     }
@@ -38,6 +41,7 @@ namespace ngen {
     //!         Miscellaneous variables associated with the view being rendered.
     void Material::onBeginRendering( const RenderArgs &renderArgs ) {
         // TODO: Prepare material for use by OpenGL
+        //renderArgs->stateManager->setBlending( m_blendEnabled, m_blendFunc, m_blendMode );
     }
 
 

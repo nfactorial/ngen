@@ -14,35 +14,29 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_PROGRAM_H
-#define NGEN_PROGRAM_H
-
+#ifndef NGEN_MATERIAL_DESC_H
+#define NGEN_MATERIAL_DESC_H
 
 ////////////////////////////////////////////////////////////////////////////
 
-#include <OpenGL/gl.h>
-#include "shader.h"
+#include "blend_func.h"
+#include "blend_mode.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
-    class GLProgram {
-    public:
-        GLProgram();
-        ~GLProgram();
-
-        bool initialize( const char *vertexShader, const char *pixelShader );
-        void dispose();
-
-    private:
-        GLuint      m_id;
-        GLShader    m_vertexShader;
-        GLShader    m_pixelShader;
+    struct MaterialDesc {
+        uint32_t name;
+        uint32_t vertexShader;
+        uint32_t pixelShader;       //!< Perhaps reference a vertex program instead?
+        bool blendEnable;
+        kBlendMode blendMode;
+        kBlendFunc blendFunc;
     };
 }
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif //NGEN_PROGRAM_H
+#endif //NGEN_MATERIAL_DESC_H

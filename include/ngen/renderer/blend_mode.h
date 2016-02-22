@@ -14,35 +14,28 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_PROGRAM_H
-#define NGEN_PROGRAM_H
-
-
-////////////////////////////////////////////////////////////////////////////
-
-#include <OpenGL/gl.h>
-#include "shader.h"
+#ifndef NGEN_BLEND_MODE_H
+#define NGEN_BLEND_MODE_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
-    class GLProgram {
-    public:
-        GLProgram();
-        ~GLProgram();
-
-        bool initialize( const char *vertexShader, const char *pixelShader );
-        void dispose();
-
-    private:
-        GLuint      m_id;
-        GLShader    m_vertexShader;
-        GLShader    m_pixelShader;
+    enum kBlendMode {
+        kBlendMode_Zero,
+        kBlendMode_One,
+        kBlendMode_SrcColor,
+        kBlendMode_InvSrcColor,
+        kBlendMode_SrcAlpha,
+        kBlendMode_InvSrcAlpha,
+        kBlendMode_DestAlpha,
+        kBlendMode_InvDestAlpha,
+        kBlendMode_DestColor,
+        kBlendMode_InvDestColor
     };
 }
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif //NGEN_PROGRAM_H
+#endif //NGEN_BLEND_MODE_H

@@ -14,35 +14,30 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_PROGRAM_H
-#define NGEN_PROGRAM_H
+#ifndef NGEN_GEOMETRY_H
+#define NGEN_GEOMETRY_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
 #include <OpenGL/gl.h>
-#include "shader.h"
 
 
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
-    class GLProgram {
-    public:
-        GLProgram();
-        ~GLProgram();
+    class BufferObject;
 
-        bool initialize( const char *vertexShader, const char *pixelShader );
-        void dispose();
-
-    private:
-        GLuint      m_id;
-        GLShader    m_vertexShader;
-        GLShader    m_pixelShader;
+    //! \brief  Represents a raw block of geometry that may be sent to the GPU.
+    struct Geometry {
+        GLint   vao;                // TODO: Wrap in an object?
+        GLenum  primitiveType;
+        GLint   start;
+        GLsizei count;
     };
 }
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif //NGEN_PROGRAM_H
+#endif //NGEN_GEOMETRY_H

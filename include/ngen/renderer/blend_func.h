@@ -14,35 +14,24 @@
 // limitations under the License.
 //
 
-#ifndef NGEN_PROGRAM_H
-#define NGEN_PROGRAM_H
-
-
-////////////////////////////////////////////////////////////////////////////
-
-#include <OpenGL/gl.h>
-#include "shader.h"
+#ifndef NGEN_BLEND_FUNC_H
+#define NGEN_BLEND_FUNC_H
 
 
 ////////////////////////////////////////////////////////////////////////////
 
 namespace ngen {
-    class GLProgram {
-    public:
-        GLProgram();
-        ~GLProgram();
-
-        bool initialize( const char *vertexShader, const char *pixelShader );
-        void dispose();
-
-    private:
-        GLuint      m_id;
-        GLShader    m_vertexShader;
-        GLShader    m_pixelShader;
+    //! \brief  Defines the blend function the hardware will perform.
+    enum kBlendFunc {
+        kBlendFunc_Add,
+        kBlendFunc_Subtract,
+        kBlendFunc_ReverseSubtract,
+        kBlendFunc_Min,
+        kBlendFunc_Max
     };
 }
 
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif //NGEN_PROGRAM_H
+#endif //NGEN_BLEND_FUNC_H

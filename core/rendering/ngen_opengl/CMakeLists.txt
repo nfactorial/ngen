@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 2.7)
 
 project(ngenOpenGL)
 
@@ -20,6 +20,8 @@ include_directories(${ngenExternal_SOURCE_DIR}/sce_vectormath/include/vectormath
 
 set(SOURCE_FILES
         src/buffer_object.cpp
+        src/state_manager.cpp
+        src/program_factory.cpp
         src/shader.cpp
         src/program.cpp
         src/texture.cpp
@@ -28,6 +30,10 @@ set(SOURCE_FILES
 set(INCLUDE_FILES
         include/buffer_object.h
         include/shader.h
+        include/state_value.h
+        include/state_manager.h
+        include/program_factory.h
+        include/geometry.h
         include/program.h
         include/texture.h
         include/material.h)
