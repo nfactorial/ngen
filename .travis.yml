@@ -7,6 +7,7 @@ compiler:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y cmake
+  - sudo apt-get search sdl2
   - sudo apt-get install -y libsdl2-image-dev
 
 before_script:
