@@ -5,8 +5,8 @@ compiler:
  - gcc
 
 before_install:
-  - sudo apt-get -qq update
   - sudo apt-add-repository -y ppa:zoogie/sdl2-snapshots
+  - sudo apt-get -qq update
   - sudo apt-get install -y cmake libsdl2-image-dev
 
 before_script:
