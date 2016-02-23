@@ -9,5 +9,5 @@ add_subdirectory(GSL)
 add_subdirectory(bullet3)
 
 if (ngen_build_tests)
-    add_subdirectory(gtest-1.7.0)
+    add_subdirectory(googletest)
 endif()
