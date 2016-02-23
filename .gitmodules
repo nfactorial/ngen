@@ -1,0 +1,19 @@
+[submodule "boost"]
+    path = external/boost
+    uri = git://github.com/boostorg/boost
+
+[submodule "sce_vectormath"]
+    path = external/sce_vectormath
+    uri = git://github.com/erwincoumans/sce_vectormath
+
+[submodule "bullet3"]
+    path = external/bullet3
+    uri = git://github.com/bulletphysics/bullet3
+
+[submodule "GSL"]
+    path = external/GSL
+    uri = git://github.com/Microsoft/GSL
+
+[submodule "GoogleTest"]
+    path = external/gtest-1.7.0
+    uri = git://github.com/google/googletest.git
