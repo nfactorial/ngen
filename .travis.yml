@@ -8,6 +8,12 @@ before_install:
   - sudo apt-add-repository -y ppa:zoogie/sdl2-snapshots
   - sudo apt-get -qq update
   - sudo apt-get install -y cmake libsdl2-image-dev
+  - cd external
+  - git clone https://github.com/boostorg/boost
+  - git clone https://github.com/erwincoumans/sce_vectormath
+  - git clone https://github.com/bulletphysics/bullet3
+  - git clone https://github.com/google/googletest
+  - git clone https://github.com/Microsoft/GSL
 
 before_script:
   - mkdir build 
