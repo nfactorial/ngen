@@ -34,8 +34,8 @@ namespace ngen
         static SocketHandle create( );
 
         static int listen();
-        static int recv( SocketHandle handle, void *buffer, int length );
-        static int send( SocketHandle handle, const void *buffer, int length );
+        static int recv(SocketHandle handle, void *buffer, int length);
+        static int send(SocketHandle handle, const void *buffer, int length);
     }
 }
 

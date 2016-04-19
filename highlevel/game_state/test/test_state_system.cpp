@@ -24,6 +24,5 @@ TEST( StateSystem, TestConstruction ) {
     EXPECT_EQ( -1, stateSystem.getActiveState() );
     EXPECT_EQ( -1, stateSystem.getPendingState() );
     EXPECT_EQ( 0, stateSystem.getStateCount() );
-    EXPECT_FALSE( stateSystem.requestState( 0 ) );
+    EXPECT_FALSE( stateSystem.requestState(0) );
 }
-

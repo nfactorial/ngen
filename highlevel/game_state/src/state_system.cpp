@@ -14,29 +14,31 @@
 // limitations under the License.
 //
 
+#include <cstring>
+
 #include "state_system.h"
 #include "game_system.h"
 #include "init_args.h"
 #include "state_description.h"
 #include "game_system_ref.h"
+#include "system_crc.h"
 
-const int kInvalidStateId       = -1;
+const int kInvalidStateId = -1;
 
 StateSystem::StateSystem()
-: m_systemFactory( nullptr )
-, m_stateList( nullptr )
-, m_systemCount( 0 )
-, m_systemList( nullptr )
-, m_updateTable( nullptr )
-, m_childTable( nullptr )
-, m_stateCount( 0 )
-, m_activeState( kInvalidStateId )
-, m_pendingState( kInvalidStateId )
+: m_systemFactory(nullptr)
+, m_stateList(nullptr)
+, m_systemCount(0)
+, m_systemList(nullptr)
+, m_updateTable(nullptr)
+, m_childTable(nullptr)
+, m_stateCount(0)
+, m_activeState(kInvalidStateId)
+, m_pendingState(kInvalidStateId)
 {
 }
 
-StateSystem::~StateSystem()
-{
+StateSystem::~StateSystem() {
 }
 
 
@@ -44,13 +46,11 @@ StateSystem::~StateSystem()
 //! \param  factory [in] -
 //!         Object that may be used to create game system objects for use by the title.
 //! \return <em>True</em> if the state system initialized successfully otherwise <em>false</em>.
-bool StateSystem::initialize( GameSystemFactory &factory )
-{
+bool StateSystem::initialize(GameSystemFactory &factory) {
     InitArgs initArgs;
 
-    for ( size_t loop = 0; loop < m_systemCount; ++loop )
-    {
-        m_systemList[ loop ].instance->onInitialize( initArgs );
+    for (size_t loop = 0; loop < m_systemCount; ++loop) {
+        m_systemList[loop].instance->onInitialize(initArgs);
     }
 
     return false;
@@ -60,22 +60,18 @@ bool StateSystem::initialize( GameSystemFactory &factory )
 //! \brief  Performs any per-frame processing necessary as defined by the active state tree.
 //! \param  updateArgs [in] -
 //!         Per-frame parameters for the running title.
-void StateSystem::update( const UpdateArgs &updateArgs )
-{
-    if ( kInvalidStateId != m_activeState )
-    {
-        const StateDescription &state = m_stateList[ m_activeState ];
-        
+void StateSystem::update(const UpdateArgs &updateArgs) {
+    if (kInvalidStateId != m_activeState) {
+        const StateDescription &state = m_stateList[m_activeState];
+
 //        NGEN_ASSERT( 0 != m_stateCount, "Active state was valid but there are no states available." );
 //        NGEN_ASSERT( nullptr != m_stateList, "Active state was valid but there is no state table." );
-        
-        if ( 0 != state.updates )
-        {
+
+        if (0 != state.updates) {
             const unsigned int count = state.updates;
             const unsigned int start = state.firstUpdate;
-            
-            for ( unsigned int loop = 0; loop < count; ++loop )
-            {
+
+            for (unsigned int loop = 0; loop < count; ++loop) {
 //                m_updateList[ start + loop ]->onUpdate( updateArgs );
             }
         }
@@ -83,8 +79,25 @@ void StateSystem::update( const UpdateArgs &updateArgs )
 }
 
 //! \brief
-bool StateSystem::requestState( uint32_t crc )
-{
+bool StateSystem::requestState(uint32_t crc) {
     //m_pendingState = //
     return false;
+}
+
+
+//! \brief  Locates the state associated with the specified name.
+//! \param  name [in] -
+//!         Name of the state to be located.
+//! \return Index of the state with the specified name, if one could not be found this method returns -1.
+int StateSystem::findState(const char *name) const {
+    const size_t length = strlen( name );
+
+    const size_t stateId = ngen::calculateChecksum(name, length);
+    for ( size_t loop = 0; loop < m_stateCount; ++loop ) {
+        if (m_stateList[loop].name == stateId) {
+            return loop;
+        }
+    }
+
+    return -1;
 }

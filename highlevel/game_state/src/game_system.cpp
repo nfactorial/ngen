@@ -32,27 +32,23 @@ GameSystem::~GameSystem()
 //! \param  initArgs [in] -
 //!         Structure providing access tot he rest of the framework.
 //! \return <em>True</em> if the system initialized successfully otherwise <em>false</em>.
-bool GameSystem::onInitialize( InitArgs &initArgs )
-{
+bool GameSystem::onInitialize( InitArgs &initArgs ) {
     return true;
 }
 
 
 //! \brief  Called when the system becomes active within the title.
-void GameSystem::onExit()
-{
+void GameSystem::onEnter() {
 }
 
 
 //! \brief  Called when the system is no longer active within the title.
-void GameSystem::onEnter()
-{
+void GameSystem::onExit() {
 }
 
 
 //! \brief  Called when the system should system should perform any per-frame processing.
 //! \param  updateArgs [in] -
 //!         Per-frame parameters available for use by the system.
-void GameSystem::onUpdate( const UpdateArgs &updateArgs )
-{
+void GameSystem::onUpdate( const UpdateArgs &updateArgs ) {
 }

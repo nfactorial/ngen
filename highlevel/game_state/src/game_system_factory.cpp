@@ -14,38 +14,20 @@
 // limitations under the License.
 //
 
-#include <boost/crc.hpp>
 
 #include "game_system_factory.h"
+#include "system_crc.h"
 
-namespace {
-    //! \brief  Computes a checksum for the supplied block of data.
-    //!
-    //! The checksum is used within the factory instead of the raw string. This is to simplify the
-    //! look-up. If collisions occur within different names, the checksum calculation can be changed
-    //! or the name that is causing the collision.
-    size_t calculateChecksum( const char *name, size_t length ) {
-        // This function assumes the input has already been sanity checked
-        boost::crc_32_type crc;
-
-        crc.process_block(name, &name[length]);
-
-        return crc.checksum();
-    }
-}
 
 GameSystemFactory::GameSystemFactory()
 {
-
 }
 
-GameSystemFactory::~GameSystemFactory()
-{
-
+GameSystemFactory::~GameSystemFactory() {
 }
 
 
-//! \brief  Atetmpts to create an instance of the object associated with the specified name.
+//! \brief  Attempts to create an instance of the object associated with the specified name.
 //! \param  name [in] -
 //!         Name of the object to be created.
 //! \return Pointer to the newly created object, if the object could not be found this method returns <em>nullptr</em>.
@@ -54,11 +36,11 @@ GameSystem* GameSystemFactory::create( const char *name )
     if ( nullptr != name ) {
         const size_t length = strlen( name );
         if ( length > 0 ) {
-            const size_t keyValue = calculateChecksum(name, length);
+            const size_t keyValue = ngen::calculateChecksum(name, length);
 
-            RegistryMap::iterator i = m_registry.find(keyValue);
-            if (i != m_registry.end()) {
-                return i->second();
+            auto it = m_registry.find(keyValue);
+            if (it != m_registry.end()) {
+                return it->second();
             }
         }
     }
@@ -76,10 +58,11 @@ bool GameSystemFactory::unregister( const char *name )
     if ( nullptr != name ) {
         const size_t length = strlen( name );
         if ( length > 0 ) {
-            const size_t keyValue = calculateChecksum(name, length);
+            const size_t keyValue = ngen::calculateChecksum(name, length);
 
-            if ( m_registry.find( keyValue ) != m_registry.end() ) {
-                m_registry.erase(keyValue);
+            auto it = m_registry.find(keyValue);
+            if (it != m_registry.end()) {
+                m_registry.erase(it);
                 return true;
             }
         }
@@ -104,9 +87,10 @@ bool GameSystemFactory::registerCtor( const char *name, GameSystemCreateFunc cre
     {
         const size_t length = strlen( name );
         if ( length > 0 ) {
-            const size_t keyValue = calculateChecksum(name, length);
+            const size_t keyValue = ngen::calculateChecksum(name, length);
 
-            if ( m_registry.find( keyValue ) == m_registry.end() ) {
+            // TODO: Lock here if thread safety is needed
+            if (m_registry.find(keyValue) == m_registry.end()) {
                 m_registry.insert(RegistryMap::value_type(keyValue, createFunc));
                 return true;
             }
