@@ -25,7 +25,7 @@ namespace ngen {
     , m_isEnabled(true)
     {
         m_cameraArgs.type = ngen::kCamera_Invalid;
-        m_cameraArgs.fov = 75.0f;
+        m_cameraArgs.fov = 45.0f;
         m_cameraArgs.zNear = 0.1;
         m_cameraArgs.zFar = 200.0f;
     }
